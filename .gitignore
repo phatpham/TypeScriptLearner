@@ -1,0 +1,4 @@
+#dependency dir
+node_modules/
+venv/
+build/

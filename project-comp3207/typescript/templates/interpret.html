@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> HI GUYS </h1>
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 m-auto">
+        <h3> ENTER STUFF HERE </h3>
+        <form action="{{ url_for('interpret') }}" method="post">
+            <textarea name="inputCode" rows="10" cols="30"></textarea>
+            <input type="submit" value="Run code" class="btn btn-success btn-lg btn-block mt-4" />
+        </form>
+      </div>
+      <div class="col-md-6 m-auto">
+        <h3> OUTPUT HERE </h3>
+        {% if output %}
+        <div name = "result">{{output}}</div>
+        {% else %}
+        <div name = "result">KEKW</div>
+        {% endif %}
+      </div>
+    </div>
+</div>
+{% endblock %}
