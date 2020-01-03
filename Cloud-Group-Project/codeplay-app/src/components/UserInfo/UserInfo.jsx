@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { changeView, changeAvatar } from "../../actions/index";
@@ -13,6 +13,18 @@ function UserInfo() {
     date: "23/09/2019",
     progress: "20",
     avatar: "goblin.png"
+  });
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    axios
+      .post("/user", {username: "user0"})
+      .then(res => {
+        alert(res);
+      })
+      .catch(res => {
+        alert("Not Working");
+      });
   });
 
   /**
