@@ -16,7 +16,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    db_path = os.path.join(os.path.dirname(__file__), 'test.db')
+    db_path = os.path.join(os.path.dirname(__file__), '../../test.db')
     print(db_path)
     db_uri = 'sqlite:///{}'.format(db_path)
     SQLALCHEMY_DATABASE_URI = db_uri
