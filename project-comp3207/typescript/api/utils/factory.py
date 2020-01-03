@@ -1,10 +1,11 @@
 #import flask
 from flask import render_template, url_for, request, redirect   
 from flask import Flask
+from flask_jwt_extended import JWTManager
 
 from http import HTTPStatus
 
-from api.utils.response import custom_response
+from . import custom_response
 from api.views import interpreter_router
 from api.views import user_router
 
@@ -17,7 +18,11 @@ def create_app(config):
     
     #Load config
     app.config.from_object(config)
+    
+    #JWT
+    jwt = JWTManager(app)
 
+    #Register views
     app.register_blueprint(interpreter_router.interp)
     app.register_blueprint(user_router.userBP)
 

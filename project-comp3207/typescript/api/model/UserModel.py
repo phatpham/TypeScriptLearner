@@ -2,13 +2,15 @@ from marshmallow import Schema, fields
 
 from api.utils.database import db
 
+from passlib.hash import pbkdf2_sha256 as sha256
+
 
 #Load user
 class User(db.Model):
     """
     User entity model, stored in 'user' table of database
     """
-    user_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, unique=True, primary_key=True)
     password = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
     #date = db.Column(db.String(80), nullable=False)
@@ -32,11 +34,22 @@ class User(db.Model):
             db.session.rollback()
             db.session.flush() # for resetting non-commited .add()
 
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
     @staticmethod
     def get_user_by_username(name):
         user = User.query.filter_by(username=name).first()
         return user
     
+    @staticmethod
+    def generate_hash(password):
+        return sha256.hash(password)
+
+    @staticmethod
+    def verify_hash(password, hash):
+        return sha256.verify(password, hash)
 
 class UserSchema(Schema):
     user_id = fields.Int(required=True)

@@ -1,10 +1,11 @@
 import subprocess
 
+from flask_jwt_extended import jwt_required
 from flask import Blueprint,request, render_template
 
 interp = Blueprint('interp', __name__, url_prefix='/game')
 
-
+@jwt_required
 @interp.route('/execute', methods = ["POST", "GET"])
 def execute():
     '''
