@@ -103,8 +103,10 @@ function Game() {
         <h3>Code & Play</h3>
       </div>
       <div className="userinfotag">
-        <input type="image" src="speaker.png" class="btn-sound" />
-
+        <div className="volume">
+        <input type="image" src="speaker.png" className="btn-sound" />
+        </div>
+        <div className="userinfodiv">
         <button
           onClick={() => {
             history.push("/user");
@@ -114,6 +116,8 @@ function Game() {
         >
           User info
         </button>
+        </div>
+        <div className="logoffdiv">
         <button
           onClick={() => {
             logoff();
@@ -122,6 +126,7 @@ function Game() {
         >
           LOG OFF
         </button>
+        </div>
       </div>
       <div className="story">
         <p className="storytext" align="justify">

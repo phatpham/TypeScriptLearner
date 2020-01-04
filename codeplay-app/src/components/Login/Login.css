@@ -1,18 +1,24 @@
 .loginpage {
   background-color: #242a3b;
   display: grid;
+  height: 100%;
 }
 
 .innerlogin {
   display: grid;
   grid-template-rows: 200px 60px 60px 60px 60px;
   align-self: center;
+  justify-content: center;
 }
 
 h1 {
   color: white;
   font-family: "Courier New", Courier, monospace;
   font-size: 100px;
+}
+
+h2 {
+  justify-self: center;
 }
 
 .logininput {
