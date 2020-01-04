@@ -5,10 +5,9 @@ import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
-
 function SignUp() {
-    const history = useHistory();
-
+  const history = useHistory();
+  const [showValidator, setShowValidator] = useState(false);
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
@@ -38,6 +37,10 @@ function SignUp() {
           placeholder="Username"
         ></input>
         <input
+          onFocus={() => {
+            setShowValidator(true);
+          }}
+          onBlur={setShowValidator(false)}
           onChange={e => {
             setPass(e.target.value);
           }}
@@ -72,7 +75,6 @@ function SignUp() {
             }}
             className="signup back"
           >
-
             Back
           </button>
         </div>

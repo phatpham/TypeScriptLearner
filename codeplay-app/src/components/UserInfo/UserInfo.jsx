@@ -1,5 +1,3 @@
-
-import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 // import { changeAvatar } from "../../actions/index";
 
@@ -8,16 +6,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./UserInfo.css";
-// import axios from "axios";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { changeAvatar } from "../../actions";
 
 function UserInfo() {
-
   const dispatch = useDispatch();
 
   const history = useHistory();
-
 
   const username = "xhao98";
   // const password = "123123";
@@ -35,7 +31,6 @@ function UserInfo() {
         alert("Loading Failure");
       });
   };
-
 
   useEffect(() => {
     dispatch(changeAvatar("goblin"));
@@ -149,7 +144,6 @@ function UserInfo() {
             }}
             className="changepassword"
           >
-
             Change Password
           </button>
         </div>
@@ -168,9 +162,7 @@ function UserInfo() {
         <div className="infobuttons">
           <button
             onClick={() => {
-
-                history.push('/game')
-
+              history.push("/game");
             }}
             className="infobutton"
           >

@@ -16,16 +16,16 @@ import { useHistory } from "react-router-dom";
 function Game() {
   const history = useHistory();
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
-
+  const dispatch = useDispatch();
   const [code, setCode] = useState("");
   const [unit, setUnit] = useState(2);
   const [story, setStory] = useState(" ");
   const [solution, setSolution] = useState("");
   const music = useSelector(state => state.music);
 
-  // function onChange(newValue) {
-  //   setCode(newValue);
-  // }
+  function onChange(newValue) {
+    setCode(newValue);
+  }
 
   function restart() {
     setCode("");
@@ -47,17 +47,14 @@ function Game() {
   const logoff = () => {
     localStorage.setItem("user", "");
     localStorage.setItem("loginStatus", "OFF");
-
-    history.push("/home");
-
-   
+  };
+  // history.push("/home");
 
   const stopSound = () => {
     const backgroundMusic = document.getElementById("background");
     const characterMusic = document.getElementById("character");
     backgroundMusic.muted = music;
     characterMusic.muted = music;
-
   };
 
   return (
@@ -118,7 +115,6 @@ function Game() {
         <h3>Code & Play</h3>
       </div>
       <div className="userinfotag">
-
         <div className="volume">
           <input
             type="image"
@@ -145,13 +141,13 @@ function Game() {
           <button
             onClick={() => {
               logoff();
+              history.push("/home");
             }}
             className="btn-log-off"
           >
             LOG OFF
           </button>
         </div>
-
       </div>
       <div className="story">
         <p className="storytext" align="justify">
@@ -245,4 +241,5 @@ function Game() {
     </div>
   );
 }
+
 export default Game;
