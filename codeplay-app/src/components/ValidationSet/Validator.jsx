@@ -1,20 +1,21 @@
 import React, { Component } from "react";
+import "./Validator.css"
 
-function Validator() {
+function Validator(prop) {
   return (
-    <div id="message">
-      <h3>Password must contain the following:</h3>
-      <p id="letter" class="invalid">
-        A <b>lowercase</b> letter
+    <div className="validator">
+      <h3>Password must have:</h3>
+      <p className="notFulfilled" id="lowercase">
+        At least one lowercase letter
       </p>
-      <p id="capital" class="invalid">
-        A <b>capital (uppercase)</b> letter
+      <p className="notFulfilled" id="uppercase">
+        At least one uppercase letter
       </p>
-      <p id="number" class="invalid">
-        A <b>number</b>
+      <p className="notFulfilled" id="number">
+        At least one number
       </p>
-      <p id="length" class="invalid">
-        Minimum <b>8 characters</b>
+      <p className="notFulfilled" id="length">
+        At least 8 characters long
       </p>
     </div>
   );
