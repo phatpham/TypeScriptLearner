@@ -1,6 +1,7 @@
-export const login = () => {
+export const login = userObj => {
   return {
-    type: "LOG_IN"
+    type: "LOG_IN",
+    payload: userObj
   };
 };
 

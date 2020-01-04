@@ -22,6 +22,10 @@ function Game() {
   const [story, setStory] = useState(" ");
   const [solution, setSolution] = useState("");
   const music = useSelector(state => state.music);
+  const [redirect, setRedirect] = useState("false");
+
+  // send request to server to run code.
+  function runCode() {}
 
   function onChange(newValue) {
     setCode(newValue);
