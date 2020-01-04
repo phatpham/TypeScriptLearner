@@ -201,7 +201,7 @@ function Game() {
           >
             Restart
           </button>
-          <Stopwatch />
+          <Stopwatch start={new Date()} />
         </div>
       </div>
       <div className="output">
