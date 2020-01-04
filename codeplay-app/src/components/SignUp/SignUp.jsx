@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import "../Login/Login.css";
+
+import { useHistory } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 
+
 function SignUp() {
-  const dispatch = useDispatch();
+    const history = useHistory();
+
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
@@ -60,7 +65,14 @@ function SignUp() {
           >
             Sign Up
           </button>
-          <button onClick={() => {}} className="signup back">
+
+          <button
+            onClick={() => {
+              history.push("/login");
+            }}
+            className="signup back"
+          >
+
             Back
           </button>
         </div>

@@ -4,7 +4,6 @@ import userReducer from "./user";
 import musicReducer from "./music";
 
 import { combineReducers } from "redux";
-import { login } from "../actions";
 
 const allReducers = combineReducers({
   avatar: avatarReducer,

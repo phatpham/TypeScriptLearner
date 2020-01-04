@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import "./Login.css";
+
 import { useDispatch } from "react-redux";
 import { login } from "../../actions";
+
 import axios from "axios";
 import { SemipolarLoading } from "react-loadingg";
 import { useHistory } from "react-router-dom";
 
 function Login() {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const [pass, setPass] = useState("");
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState("Login Failed");
+  const [status] = useState("Login Failed");
   /**
    * TODO: Add actual URL for login
    */
@@ -73,8 +74,15 @@ function Login() {
             >
               Log In
             </button>
-            <button className="signup" onClick={() => {}}>
-              Sign up?
+
+            <button
+              className="signup"
+              onClick={() => {
+                history.push("/singup");
+              }}
+            >
+              Sign up
+
             </button>
           </div>
           <h2 className="status">{status}</h2>

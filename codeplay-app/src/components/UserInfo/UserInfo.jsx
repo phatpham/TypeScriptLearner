@@ -1,24 +1,32 @@
+
+import React, { useState } from "react";
+// import { useDispatch } from "react-redux";
+// import { changeAvatar } from "../../actions/index";
+
 import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import "./UserInfo.css";
-import axios from "axios";
+// import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { changeAvatar } from "../../actions";
 
 function UserInfo() {
+
   const dispatch = useDispatch();
 
   const history = useHistory();
 
+
   const username = "xhao98";
-  const password = "123123";
+  // const password = "123123";
   const date = "2013/01/01";
   const avatar = useSelector(state => state.avatar);
   const progress = 22;
 
   //TODO: ADD URL AND ACTION TO RESPOSNE
+
   const saveRequest = () => {
     axios
       .post("/save")
@@ -27,6 +35,7 @@ function UserInfo() {
         alert("Loading Failure");
       });
   };
+
 
   useEffect(() => {
     dispatch(changeAvatar("goblin"));
@@ -133,7 +142,14 @@ function UserInfo() {
           <h2 type="password" className="info" align="left">
             ********
           </h2>
-          <button onClick={() => {}} className="changepassword">
+
+          <button
+            onClick={() => {
+              history.push("/reset");
+            }}
+            className="changepassword"
+          >
+
             Change Password
           </button>
         </div>
@@ -152,8 +168,9 @@ function UserInfo() {
         <div className="infobuttons">
           <button
             onClick={() => {
-              history.push("/game");
-              // dispatch(changeView("GAME_PAGE"));
+
+                history.push('/game')
+
             }}
             className="infobutton"
           >

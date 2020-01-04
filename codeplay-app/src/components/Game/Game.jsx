@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { changeView } from "../../actions";
+
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/theme-monokai";
@@ -12,7 +14,6 @@ import { changeMusicState } from "../../actions/";
 import { useHistory } from "react-router-dom";
 
 function Game() {
-  const dispatch = useDispatch();
   const history = useHistory();
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
 
@@ -22,9 +23,9 @@ function Game() {
   const [solution, setSolution] = useState("");
   const music = useSelector(state => state.music);
 
-  function onChange(newValue) {
-    setCode(newValue);
-  }
+  // function onChange(newValue) {
+  //   setCode(newValue);
+  // }
 
   function restart() {
     setCode("");
@@ -46,14 +47,17 @@ function Game() {
   const logoff = () => {
     localStorage.setItem("user", "");
     localStorage.setItem("loginStatus", "OFF");
-    history.push("/login");
-  };
+
+    history.push("/home");
+
+   
 
   const stopSound = () => {
     const backgroundMusic = document.getElementById("background");
     const characterMusic = document.getElementById("character");
     backgroundMusic.muted = music;
     characterMusic.muted = music;
+
   };
 
   return (
@@ -114,6 +118,7 @@ function Game() {
         <h3>Code & Play</h3>
       </div>
       <div className="userinfotag">
+
         <div className="volume">
           <input
             type="image"
@@ -146,6 +151,7 @@ function Game() {
             LOG OFF
           </button>
         </div>
+
       </div>
       <div className="story">
         <p className="storytext" align="justify">
@@ -171,7 +177,7 @@ function Game() {
         </p>
       </div>
       <div className="instructionssolution">
-        <p className="instructions" align="left">
+        <div className="instructions" align="left">
           <ol>
             <li>Help swim</li>
             <li>Don't die</li>
@@ -180,7 +186,7 @@ function Game() {
             <li>Don't die</li>
             <li>Don't die</li>
           </ol>
-        </p>
+        </div>
         <button className="solutiontag">Solution</button>
       </div>
       <div className="code">

@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "./ResetPassword.css";
 
+
+import { useHistory } from "react-router-dom";
+
+
 import { useDispatch, useSelector } from "react-redux";
+
 function ResetPassword() {
+    const history = useHistory();
+
   const [oldPass, setOldPass] = useState("");
   const userPass = useSelector(state => state.userPass);
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const dispatch = useDispatch();
 
   const resetRequest = () => {
     alert("Your name is " + newPass + ", Your password is " + oldPass + ".");
@@ -69,7 +75,7 @@ function ResetPassword() {
           type="password"
           placeholder="Confirm new password"
         ></input>
-        <div>
+        <div className='inline-buttons'>
           <button
             onClick={() => {
               resetRequest();
@@ -79,8 +85,15 @@ function ResetPassword() {
           >
             Save new password
           </button>
-          <button className="savepassword" onClick={() => {}}>
-            BACK
+
+          <button
+            className="savepassword"
+            onClick={() => {
+              history.push("/user");
+            }}
+          >
+            Back
+
           </button>
         </div>
       </div>
