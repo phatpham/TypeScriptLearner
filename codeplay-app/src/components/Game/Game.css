@@ -19,7 +19,10 @@
 .userinfotag {
   align-self: center;
   justify-self: right;
-  margin-right: 15px;
+  width: 74%;
+  display: grid;
+  grid-template-columns: 10% 40% 40%;
+  column-gap: 5px;
 }
 
 .userinfo {
@@ -169,7 +172,11 @@
   border-radius: 15px;
   cursor: pointer;
   font-family: "Courier New", Courier, monospace;
-  background-color: red;
-  color: white;
+  background-color: white;
   border: 1px solid white;
+  cursor: pointer;
+}
+
+.btn-sound:hover {
+  background-color: grey;
 }

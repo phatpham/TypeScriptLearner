@@ -106,6 +106,8 @@ function Game() {
         <h3>Code & Play</h3>
       </div>
       <div className="userinfotag">
+
+        <div className="volume">
         <input
           type="image"
           src={music == true ? "speaker.png" : "mute.png"}
@@ -115,6 +117,8 @@ function Game() {
             stopSound();
           }}
         />
+        </div>
+        <div className="userinfodiv">
 
         <button
           onClick={() => {
@@ -125,6 +129,8 @@ function Game() {
         >
           User info
         </button>
+        </div>
+        <div className="logoffdiv">
         <button
           onClick={() => {
             logoff();
@@ -133,6 +139,7 @@ function Game() {
         >
           LOG OFF
         </button>
+        </div>
       </div>
       <div className="story">
         <p className="storytext" align="justify">
