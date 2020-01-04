@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeView } from "../../actions";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-typescript";
@@ -8,7 +8,7 @@ import "./Game.css";
 import axios from "axios";
 import DragDrop from "./DragDrop";
 import Stopwatch from "./stopwatch";
-
+import { changeMusicState } from "../../actions/";
 import { useHistory } from "react-router-dom";
 
 function Game() {
@@ -19,11 +19,7 @@ function Game() {
   const [unit, setUnit] = useState(2);
   const [story, setStory] = useState(" ");
   const [solution, setSolution] = useState("");
-  const [counter, setCounter] = useState("00:00:00");
-
-  function onChange(newValue) {
-    setCode(newValue);
-  }
+  const music = useSelector(state => state.music);
 
   useEffect(() => {
     axios
@@ -43,6 +39,13 @@ function Game() {
     localStorage.setItem("loginStatus", "OFF");
     history.push("/login");
     // dispatch(changeView("LOGIN_PAGE"));
+  };
+
+  const stopSound = () => {
+    const backgroundMusic = document.getElementById("background");
+    const characterMusic = document.getElementById("character");
+    backgroundMusic.muted = music;
+    characterMusic.muted = music;
   };
 
   return (
@@ -103,7 +106,15 @@ function Game() {
         <h3>Code & Play</h3>
       </div>
       <div className="userinfotag">
-        <input type="image" src="speaker.png" class="btn-sound" />
+        <input
+          type="image"
+          src={music == true ? "speaker.png" : "mute.png"}
+          class="btn-sound"
+          onClick={() => {
+            dispatch(changeMusicState(music));
+            stopSound();
+          }}
+        />
 
         <button
           onClick={() => {

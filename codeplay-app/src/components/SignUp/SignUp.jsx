@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../Login/Login.css";
 import { useDispatch } from "react-redux";
-import { changeView } from "../../actions/";
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -61,12 +60,7 @@ function SignUp() {
           >
             Sign Up
           </button>
-          <button
-            onClick={() => {
-              dispatch(changeView("LOGIN_PAGE"));
-            }}
-            className="signup back"
-          >
+          <button onClick={() => {}} className="signup back">
             Back
           </button>
         </div>

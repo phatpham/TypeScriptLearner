@@ -11,13 +11,6 @@ export const changeAvatar = avatar => {
   };
 };
 
-export const changeView = page => {
-  return {
-    type: "CHANGE_VIEW",
-    payload: page
-  };
-};
-
 export const loadProfile = profile => {
   return {
     type: "LOAD_PROFILE",
@@ -36,5 +29,12 @@ export const loadUser = user => {
   return {
     type: "LOAD_USER",
     payload: user
+  };
+};
+
+export const changeMusicState = state => {
+  return {
+    type: "CHANGE_MUSIC_STATE",
+    payload: state
   };
 };

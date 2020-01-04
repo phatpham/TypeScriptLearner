@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ResetPassword.css";
-import { changeView } from "../../actions";
+
 import { useDispatch, useSelector } from "react-redux";
 function ResetPassword() {
   const [oldPass, setOldPass] = useState("");
@@ -79,12 +79,7 @@ function ResetPassword() {
           >
             Save new password
           </button>
-          <button
-            className="savepassword"
-            onClick={() => {
-              dispatch(changeView("USER_INFO_PAGE"));
-            }}
-          >
+          <button className="savepassword" onClick={() => {}}>
             BACK
           </button>
         </div>

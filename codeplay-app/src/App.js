@@ -13,6 +13,8 @@ import { useHistory } from "react-router-dom";
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const music = useSelector(state => state.music);
+  const avatar = useSelector(state => state.avatar);
 
   useEffect(() => {
     const loginStatus = localStorage.getItem("loginStatus");
@@ -25,12 +27,11 @@ function App() {
     }
   }, []);
 
-  const viewController = useSelector(state => state.viewController);
-
   //ADD OTHER ROUTES HERE
   return (
     <React.Fragment>
-      <audio autoPlay loop src="background.wav"></audio>
+      <audio id="background" autoPlay loop src="background.wav"></audio>
+      <audio autoPlay id="character" src={avatar + ".wav"}></audio>
       <Route
         path="/login"
         render={routerProps => <Login routerProps={routerProps} />}
