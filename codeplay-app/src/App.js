@@ -30,6 +30,7 @@ function App() {
   //ADD OTHER ROUTES HERE
   return (
     <React.Fragment>
+      <audio autoPlay loop src="background.wav"></audio>
       <Route
         path="/login"
         render={routerProps => <Login routerProps={routerProps} />}
