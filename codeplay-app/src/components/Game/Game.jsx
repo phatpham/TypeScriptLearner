@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 function Game() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
 
   const [code, setCode] = useState("");
   const [unit, setUnit] = useState(2);
@@ -21,24 +22,31 @@ function Game() {
   const [solution, setSolution] = useState("");
   const music = useSelector(state => state.music);
 
-  useEffect(() => {
-    axios
-      .get("/load/game")
-      .then(res => {
-        setStory(res.data.story);
-        setSolution(res.data.solution);
-        setUnit(res.data.unit);
-      })
-      .catch(res => {
-        alert("loading failure");
-      }, []);
-  });
+  function onChange(newValue) {
+    setCode(newValue);
+  }
+
+  function restart() {
+    setCode("");
+  }
+
+  // useEffect(() => {
+  //   axios
+  //     .get("/load/game")
+  //     .then(res => {
+  //       setStory(res.data.story);
+  //       setSolution(res.data.solution);
+  //       setUnit(res.data.unit);
+  //     })
+  //     .catch(res => {
+  //       alert("loading failure");
+  //     }, []);
+  // });
 
   const logoff = () => {
     localStorage.setItem("user", "");
     localStorage.setItem("loginStatus", "OFF");
     history.push("/login");
-    // dispatch(changeView("LOGIN_PAGE"));
   };
 
   const stopSound = () => {
@@ -106,39 +114,37 @@ function Game() {
         <h3>Code & Play</h3>
       </div>
       <div className="userinfotag">
-
         <div className="volume">
-        <input
-          type="image"
-          src={music == true ? "speaker.png" : "mute.png"}
-          class="btn-sound"
-          onClick={() => {
-            dispatch(changeMusicState(music));
-            stopSound();
-          }}
-        />
+          <input
+            type="image"
+            src={music == true ? "speaker.png" : "mute.png"}
+            class="btn-sound"
+            onClick={() => {
+              dispatch(changeMusicState(music));
+              stopSound();
+            }}
+          />
         </div>
         <div className="userinfodiv">
-
-        <button
-          onClick={() => {
-            history.push("/user");
-            // dispatch(changeView("USER_INFO_PAGE"));
-          }}
-          className="userinfo"
-        >
-          User info
-        </button>
+          <button
+            onClick={() => {
+              history.push("/user");
+              // dispatch(changeView("USER_INFO_PAGE"));
+            }}
+            className="userinfo"
+          >
+            User info
+          </button>
         </div>
         <div className="logoffdiv">
-        <button
-          onClick={() => {
-            logoff();
-          }}
-          className="btn-log-off"
-        >
-          LOG OFF
-        </button>
+          <button
+            onClick={() => {
+              logoff();
+            }}
+            className="btn-log-off"
+          >
+            LOG OFF
+          </button>
         </div>
       </div>
       <div className="story">
@@ -189,8 +195,24 @@ function Game() {
           value={code}
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}
-        /> */}
-        <DragDrop />
+        />
+         */}
+        {answerMode === "EDITOR" ? (
+          <AceEditor
+            mode="typescript"
+            theme="monokai"
+            name="code"
+            fontSize={15}
+            height="280px"
+            width="560px"
+            onChange={onChange}
+            value={code}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+          />
+        ) : (
+          <DragDrop />
+        )}
         <div className="codebuttons">
           <button
             onClick={() => {

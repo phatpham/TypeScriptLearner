@@ -1,7 +1,8 @@
 .gamepage {
+  height: 100%;
   background-color: #242a3b;
   display: grid;
-  grid-template-rows: 40px 230px 330px;
+  grid-template-rows: 7% 38% 55%;
   grid-template-columns: 20% 45% 35%;
   column-gap: 5px;
 }
