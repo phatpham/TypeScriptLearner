@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../Login/Login.css";
-
+import Validator from "../ValidationSet/Validator";
 import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -40,7 +40,7 @@ function SignUp() {
           onFocus={() => {
             setShowValidator(true);
           }}
-          onBlur={setShowValidator(false)}
+          onBlur={() => setShowValidator(false)}
           onChange={e => {
             setPass(e.target.value);
           }}
@@ -78,6 +78,7 @@ function SignUp() {
             Back
           </button>
         </div>
+        <Validator password={pass} show={showValidator} />
       </div>
     </div>
   );

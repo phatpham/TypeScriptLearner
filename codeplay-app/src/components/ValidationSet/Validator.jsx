@@ -1,21 +1,49 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 
-function Validator() {
+function Validator(prop) {
+  const password = prop.password;
+  useEffect(() => {
+    lowerCaseValidator();
+    upperCaseValidator();
+    numberValidator();
+    lengthValidator();
+  }, []);
+
+  const lowerCaseValidator = () => {
+    var lowerCaseLetters = /[a-z]/g;
+    if (password.match(lowerCaseLetters)) {
+      return true;
+    }
+    return false;
+  };
+
+  const upperCaseValidator = () => {
+    var upperCaseLetters = /[A-Z]/g;
+    if (password.match(upperCaseLetters)) {
+      return true;
+    }
+    return false;
+  };
+
+  const numberValidator = () => {
+    var numbers = /[0-9]/g;
+    if (password.match(numbers)) {
+      return true;
+    }
+    return false;
+  };
+
+  const lengthValidator = () => {
+    var length = /[0-9]/g;
+    if (password.length >= 8) {
+      return true;
+    }
+    return false;
+  };
+
   return (
-    <div id="message">
-      <h3>Password must contain the following:</h3>
-      <p id="letter" class="invalid">
-        A <b>lowercase</b> letter
-      </p>
-      <p id="capital" class="invalid">
-        A <b>capital (uppercase)</b> letter
-      </p>
-      <p id="number" class="invalid">
-        A <b>number</b>
-      </p>
-      <p id="length" class="invalid">
-        Minimum <b>8 characters</b>
-      </p>
+    <div hidden={!prop.show} id="message">
+      Hello
     </div>
   );
 }
