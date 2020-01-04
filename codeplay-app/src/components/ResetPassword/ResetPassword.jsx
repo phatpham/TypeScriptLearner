@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./ResetPassword.css";
-import { useSelector } from "react-redux";
+
+
 import { useHistory } from "react-router-dom";
+
+
+import { useDispatch, useSelector } from "react-redux";
 
 function ResetPassword() {
     const history = useHistory();
@@ -81,6 +85,7 @@ function ResetPassword() {
           >
             Save new password
           </button>
+
           <button
             className="savepassword"
             onClick={() => {
@@ -88,6 +93,7 @@ function ResetPassword() {
             }}
           >
             Back
+
           </button>
         </div>
       </div>

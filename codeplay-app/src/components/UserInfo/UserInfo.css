@@ -12,7 +12,7 @@
 
 .avatarimage {
   height: 500px;
-  width: 380px;
+  max-width: 380px;
   align-self: center;
   justify-self: center;
 }
@@ -60,6 +60,7 @@
   color: #1696c4;
   font-family: "Courier New", Courier, monospace;
   font-size: 29px;
+  justify-self: left;
 }
 
 .passwordinfoholder {

@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { changeView } from "../../actions";
+
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/theme-monokai";
@@ -6,39 +10,54 @@ import "./Game.css";
 import axios from "axios";
 import DragDrop from "./DragDrop";
 import Stopwatch from "./stopwatch";
-
+import { changeMusicState } from "../../actions/";
 import { useHistory } from "react-router-dom";
 
 function Game() {
   const history = useHistory();
+  const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
 
   const [code, setCode] = useState("");
   const [unit, setUnit] = useState(2);
   const [story, setStory] = useState(" ");
   const [solution, setSolution] = useState("");
-  const [counter, setCounter] = useState("00:00:00");
+  const music = useSelector(state => state.music);
 
   // function onChange(newValue) {
   //   setCode(newValue);
   // }
 
-  useEffect(() => {
-    axios
-      .get("/load/game")
-      .then(res => {
-        setStory(res.data.story);
-        setSolution(res.data.solution);
-        setUnit(res.data.unit);
-      })
-      .catch(res => {
-        alert("loading failure");
-      }, []);
-  });
+  function restart() {
+    setCode("");
+  }
+
+  // useEffect(() => {
+  //   axios
+  //     .get("/load/game")
+  //     .then(res => {
+  //       setStory(res.data.story);
+  //       setSolution(res.data.solution);
+  //       setUnit(res.data.unit);
+  //     })
+  //     .catch(res => {
+  //       alert("loading failure");
+  //     }, []);
+  // });
 
   const logoff = () => {
     localStorage.setItem("user", "");
     localStorage.setItem("loginStatus", "OFF");
+
     history.push("/home");
+
+   
+
+  const stopSound = () => {
+    const backgroundMusic = document.getElementById("background");
+    const characterMusic = document.getElementById("character");
+    backgroundMusic.muted = music;
+    characterMusic.muted = music;
+
   };
 
   return (
@@ -99,24 +118,40 @@ function Game() {
         <h3>Code & Play</h3>
       </div>
       <div className="userinfotag">
-        <input type="image" src="speaker.png" class="btn-sound" />
 
-        <button
-          onClick={() => {
-            history.push("/user");
-          }}
-          className="userinfo"
-        >
-          User info
-        </button>
-        <button
-          onClick={() => {
-            logoff();
-          }}
-          className="btn-log-off"
-        >
-          Log off
-        </button>
+        <div className="volume">
+          <input
+            type="image"
+            src={music == true ? "speaker.png" : "mute.png"}
+            class="btn-sound"
+            onClick={() => {
+              dispatch(changeMusicState(music));
+              stopSound();
+            }}
+          />
+        </div>
+        <div className="userinfodiv">
+          <button
+            onClick={() => {
+              history.push("/user");
+              // dispatch(changeView("USER_INFO_PAGE"));
+            }}
+            className="userinfo"
+          >
+            User info
+          </button>
+        </div>
+        <div className="logoffdiv">
+          <button
+            onClick={() => {
+              logoff();
+            }}
+            className="btn-log-off"
+          >
+            LOG OFF
+          </button>
+        </div>
+
       </div>
       <div className="story">
         <p className="storytext" align="justify">
@@ -166,8 +201,24 @@ function Game() {
           value={code}
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}
-        /> */}
-        <DragDrop />
+        />
+         */}
+        {answerMode === "EDITOR" ? (
+          <AceEditor
+            mode="typescript"
+            theme="monokai"
+            name="code"
+            fontSize={15}
+            height="280px"
+            width="560px"
+            onChange={onChange}
+            value={code}
+            name="UNIQUE_ID_OF_DIV"
+            editorProps={{ $blockScrolling: true }}
+          />
+        ) : (
+          <DragDrop />
+        )}
         <div className="codebuttons">
           <button
             onClick={() => {
@@ -185,7 +236,7 @@ function Game() {
           >
             Restart
           </button>
-          <Stopwatch />
+          <Stopwatch start={new Date()} />
         </div>
       </div>
       <div className="output">

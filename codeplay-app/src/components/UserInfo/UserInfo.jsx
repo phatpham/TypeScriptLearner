@@ -1,49 +1,55 @@
+
 import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 // import { changeAvatar } from "../../actions/index";
+
+import React, { useState, useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import "./UserInfo.css";
 // import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { changeAvatar } from "../../actions";
 
 function UserInfo() {
-  // const dispatch = useDispatch();
-  const history = useHistory()
+
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
 
   const username = "xhao98";
   // const password = "123123";
   const date = "2013/01/01";
-  const [avatar, setAvatar] = useState("witch");
+  const avatar = useSelector(state => state.avatar);
   const progress = 22;
 
-
   //TODO: ADD URL AND ACTION TO RESPOSNE
-  // const saveRequest = () => {
-  //   axios
-  //     .post("/save")
-  //     .then(res => {})
-  //     .catch(res => {
-  //       alert("Loading Failure");
-  //     });
-  //
-  //   dispatch(changeAvatar("GOBLIN"));
-  // };
 
-  const playSound = () => {
-    var sound = document.getElementById("audio");
-    sound.play();
+  const saveRequest = () => {
+    axios
+      .post("/save")
+      .then(res => {})
+      .catch(res => {
+        alert("Loading Failure");
+      });
   };
+
+
+  useEffect(() => {
+    dispatch(changeAvatar("goblin"));
+  }, []);
 
   return (
     <div className="userinfopage">
-      <audio autoPlay id="audio" src={avatar + ".wav"}></audio>
+      {/* <audio autoPlay id="audio" src={avatar + ".wav"}></audio> */}
       <div className="avatarholder">
-
         <img src={avatar + ".png"} className="avatarimage"></img>
         <div className="avatars">
           <button
             onClick={() => {
-              playSound();
-              setAvatar("goblin");
+              dispatch(changeAvatar("goblin"));
             }}
             className="avatarpic"
           >
@@ -52,7 +58,7 @@ function UserInfo() {
           <audio src=""></audio>
           <button
             onClick={() => {
-              setAvatar("fairy");
+              dispatch(changeAvatar("fairy"));
             }}
             className="avatarpic"
           >
@@ -60,7 +66,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("wizard");
+              dispatch(changeAvatar("wizard"));
             }}
             className="avatarpic"
           >
@@ -68,7 +74,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("witch");
+              dispatch(changeAvatar("witch"));
             }}
             className="avatarpic"
           >
@@ -76,7 +82,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("ogre");
+              dispatch(changeAvatar("ogre"));
             }}
             className="avatarpic"
           >
@@ -84,7 +90,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("troll");
+              dispatch(changeAvatar("troll"));
             }}
             className="avatarpic"
           >
@@ -92,7 +98,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("assassin");
+              dispatch(changeAvatar("assassin"));
             }}
             className="avatarpic"
           >
@@ -100,7 +106,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("archer");
+              dispatch(changeAvatar("archer"));
             }}
             className="avatarpic"
           >
@@ -108,7 +114,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("elf");
+              dispatch(changeAvatar("elf"));
             }}
             className="avatarpic"
           >
@@ -116,14 +122,13 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              setAvatar("knight");
+              dispatch(changeAvatar("knight"));
             }}
             className="avatarpic"
           >
             <img className="avicon" src="knight1.png"></img>
           </button>
         </div>
-
       </div>
       <div className="userinfoholder">
         <div className="usernameinfoholder">
@@ -137,12 +142,14 @@ function UserInfo() {
           <h2 type="password" className="info" align="left">
             ********
           </h2>
+
           <button
             onClick={() => {
               history.push("/reset");
             }}
             className="changepassword"
           >
+
             Change Password
           </button>
         </div>
@@ -161,7 +168,9 @@ function UserInfo() {
         <div className="infobuttons">
           <button
             onClick={() => {
+
                 history.push('/game')
+
             }}
             className="infobutton"
           >

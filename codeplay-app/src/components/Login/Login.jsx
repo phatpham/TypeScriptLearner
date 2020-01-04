@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "./Login.css";
+
+import { useDispatch } from "react-redux";
+import { login } from "../../actions";
+
 import axios from "axios";
 import { SemipolarLoading } from "react-loadingg";
 import { useHistory } from "react-router-dom";
@@ -70,6 +74,7 @@ function Login() {
             >
               Log In
             </button>
+
             <button
               className="signup"
               onClick={() => {
@@ -77,6 +82,7 @@ function Login() {
               }}
             >
               Sign up
+
             </button>
           </div>
           <h2 className="status">{status}</h2>

@@ -1,13 +1,7 @@
-const avatarReducer = (state = "GOBLIN", action) => {
+const avatarReducer = (state = "", action) => {
   switch (action.type) {
-    case "GOBLIN":
-      return "GOBLIN";
-    case "WARRIOR":
-      return "WARRIOR";
-    case "KNIGHT":
-      return "KNIGHT";
-    case "DRAGON":
-      return "DRAGON";
+    case "CHANGE_AVATAR":
+      return action.payload;
 
     default:
       return state;
