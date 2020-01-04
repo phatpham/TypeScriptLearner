@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "../Login/Login.css";
-import { useDispatch } from "react-redux";
-import { changeView } from "../../actions/";
+import { useHistory } from "react-router-dom";
 
 function SignUp() {
-  const dispatch = useDispatch();
+    const history = useHistory();
+
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
@@ -63,7 +63,7 @@ function SignUp() {
           </button>
           <button
             onClick={() => {
-              dispatch(changeView("LOGIN_PAGE"));
+              history.push("/login");
             }}
             className="signup back"
           >

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { changeView } from "../../actions";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/theme-monokai";
@@ -12,7 +10,6 @@ import Stopwatch from "./stopwatch";
 import { useHistory } from "react-router-dom";
 
 function Game() {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const [code, setCode] = useState("");
@@ -21,9 +18,9 @@ function Game() {
   const [solution, setSolution] = useState("");
   const [counter, setCounter] = useState("00:00:00");
 
-  function onChange(newValue) {
-    setCode(newValue);
-  }
+  // function onChange(newValue) {
+  //   setCode(newValue);
+  // }
 
   useEffect(() => {
     axios
@@ -41,8 +38,7 @@ function Game() {
   const logoff = () => {
     localStorage.setItem("user", "");
     localStorage.setItem("loginStatus", "OFF");
-    history.push("/login");
-    // dispatch(changeView("LOGIN_PAGE"));
+    history.push("/home");
   };
 
   return (
@@ -108,7 +104,6 @@ function Game() {
         <button
           onClick={() => {
             history.push("/user");
-            // dispatch(changeView("USER_INFO_PAGE"));
           }}
           className="userinfo"
         >
@@ -120,7 +115,7 @@ function Game() {
           }}
           className="btn-log-off"
         >
-          LOG OFF
+          Log off
         </button>
       </div>
       <div className="story">
@@ -147,7 +142,7 @@ function Game() {
         </p>
       </div>
       <div className="instructionssolution">
-        <p className="instructions" align="left">
+        <div className="instructions" align="left">
           <ol>
             <li>Help swim</li>
             <li>Don't die</li>
@@ -156,7 +151,7 @@ function Game() {
             <li>Don't die</li>
             <li>Don't die</li>
           </ol>
-        </p>
+        </div>
         <button className="solutiontag">Solution</button>
       </div>
       <div className="code">
