@@ -3,8 +3,8 @@ import subprocess
 from flask_jwt_extended import jwt_required
 from flask import Blueprint,request, render_template
 
-from api.model.StoryModel import Story, StorySchema
-from api.model.LeaderboardModel import Leaderboard, LeaderboardSchema
+from typescript.api.model.StoryModel import Story, StorySchema
+from typescript.api.model.LeaderboardModel import Leaderboard, LeaderboardSchema
 
 interp = Blueprint('interp', __name__, url_prefix='/game')
 

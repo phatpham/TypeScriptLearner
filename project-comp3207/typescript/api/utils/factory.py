@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager
 from http import HTTPStatus
 
 from .response import custom_response
-from api.views import interpreter_router, user_router, upload_router, story_router, leaderboard_router
+from typescript.api.views import interpreter_router, user_router, upload_router, story_router, leaderboard_router
 
 from .database import db
 

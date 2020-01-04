@@ -1,6 +1,6 @@
 from flask import Blueprint,request, render_template
 
-from api.model.LeaderboardModel import Leaderboard,LeaderboardSchema
+from typescript.api.model.LeaderboardModel import Leaderboard,LeaderboardSchema
 leaderBP = Blueprint('leaderBP', __name__, url_prefix='/leaderboard')
 
 @leaderBP.route('<int:story_id>', methods = ['POST']) 

@@ -1,6 +1,6 @@
 from flask import Blueprint,request, render_template
 
-from api.model.StoryModel import Story, StorySchema
+from typescript.api.model.StoryModel import Story, StorySchema
 
 
 storyBP = Blueprint('storyBP', __name__, url_prefix='/story')

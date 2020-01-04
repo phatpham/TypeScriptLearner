@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields
 
-from api.utils.database import db
+from typescript.api.utils.database import db
 
 #Load user
 class Story(db.Model):
