@@ -22,7 +22,7 @@ def user():
             return result
         else:
             # Need change, supposed to return error template
-            return {sad:'sad'}
+            return {'sad':'sad'}
 
 
 #Change password

@@ -13,7 +13,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, unique=True, primary_key=True)
     password = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    #date = db.Column(db.String(80), nullable=False)
+    #createAt = db.Column(db.String(80), nullable=False)
     progress = db.Column(db.Integer, nullable = False)
     avatar = db.Column(db.String(80))
 
