@@ -20,7 +20,7 @@ class ProductionConfig(Config):
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 class DevelopmentConfig(Config):
-    DEBUG = False
+    DEBUG = True
     db_path = os.path.join(os.path.dirname(__file__), '../../test.db')
     print(db_path)
     db_uri = 'sqlite:///{}'.format(db_path)
