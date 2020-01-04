@@ -1,0 +1,12 @@
+.stopwatch {
+  margin-left: auto;
+  text-align: center;
+  font-size: 16px;
+  width: 100px;
+  font-family: "Courier New", Courier, monospace;
+  border-radius: 15px;
+  cursor: pointer;
+  align-self: center;
+  background-color: #070f21;
+  color: green;
+}
