@@ -54,6 +54,10 @@ function SignUp() {
           onChange={e => {
             setConfirmPass(e.target.value);
           }}
+          onFocus={() => {
+            setShowValidator(true);
+          }}
+          onBlur={() => setShowValidator(false)}
           value={confirmPass}
           className="logininput"
           placeholder="Retype password"
@@ -78,7 +82,11 @@ function SignUp() {
             Back
           </button>
         </div>
-        <Validator password={pass} show={showValidator} />
+        <Validator
+          confirmPass={confirmPass}
+          password={pass}
+          show={showValidator}
+        />
       </div>
     </div>
   );

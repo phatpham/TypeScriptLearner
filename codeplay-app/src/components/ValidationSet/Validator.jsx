@@ -1,64 +1,96 @@
-
-import React, { Component } from "react";
-import "./Validator.css"
+import React, { Component, useEffect, useState } from "react";
+import "./Validator.css";
 
 function Validator(prop) {
-    
+  const [lowerCase, setLowerCase] = useState(false);
+  const [upperCase, setUpperCase] = useState(false);
+  const [num, setNum] = useState(false);
+  const [txtLength, setTxtLength] = useState(false);
+  const [matching, setMatching] = useState(false);
   const password = prop.password;
+  const confirmPass = prop.confirmPass;
   useEffect(() => {
     lowerCaseValidator();
     upperCaseValidator();
     numberValidator();
     lengthValidator();
-  }, []);
+    matchPassValidator();
+  }, [password, confirmPass]);
 
   const lowerCaseValidator = () => {
     var lowerCaseLetters = /[a-z]/g;
     if (password.match(lowerCaseLetters)) {
-      return true;
+      setLowerCase(true);
+    } else {
+      setLowerCase(false);
     }
-    return false;
   };
 
   const upperCaseValidator = () => {
     var upperCaseLetters = /[A-Z]/g;
     if (password.match(upperCaseLetters)) {
-      return true;
+      setUpperCase(true);
+    } else {
+      setUpperCase(false);
     }
-    return false;
   };
 
   const numberValidator = () => {
     var numbers = /[0-9]/g;
     if (password.match(numbers)) {
-      return true;
+      setNum(true);
+    } else {
+      setNum(false);
     }
-    return false;
   };
 
   const lengthValidator = () => {
     var length = /[0-9]/g;
     if (password.length >= 8) {
-      return true;
+      setTxtLength(true);
+    } else {
+      setTxtLength(false);
     }
-    return false;
+  };
+
+  const matchPassValidator = () => {
+    if (password === confirmPass) {
+      setMatching(true);
+    } else {
+      setMatching(false);
+    }
   };
 
   return (
-    
-<div hidden={!prop.show} className="validator">
+    <div hidden={!prop.show} className="validator">
       <h3>Password must have:</h3>
-      <p className="notFulfilled" id="lowercase">
+      <p
+        className={lowerCase === false ? "notFulfilled" : "fulfilled"}
+        id="lowercase"
+      >
         At least one lowercase letter
       </p>
-      <p className="notFulfilled" id="uppercase">
+      <p
+        className={upperCase === false ? "notFulfilled" : "fulfilled"}
+        id="uppercase"
+      >
         At least one uppercase letter
       </p>
-      <p className="notFulfilled" id="number">
+      <p className={num === false ? "notFulfilled" : "fulfilled"} id="number">
         At least one number
       </p>
-      <p className="notFulfilled" id="length">
+      <p
+        className={txtLength === false ? "notFulfilled" : "fulfilled"}
+        id="length"
+      >
         At least 8 characters long
+      </p>
+
+      <p
+        className={matching === false ? "notFulfilled" : "fulfilled"}
+        id="length"
+      >
+        'Password' and 'Confirm Password' match
       </p>
     </div>
   );

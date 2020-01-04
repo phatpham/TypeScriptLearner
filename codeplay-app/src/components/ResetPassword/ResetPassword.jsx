@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import "./ResetPassword.css";
 
-
+import Validator from "../ValidationSet/Validator";
 import { useHistory } from "react-router-dom";
-
 
 import { useDispatch, useSelector } from "react-redux";
 
 function ResetPassword() {
-    const history = useHistory();
-
+  const history = useHistory();
+  const [showValidator, setShowValidator] = useState(false);
   const [oldPass, setOldPass] = useState("");
   const userPass = useSelector(state => state.userPass);
   const [newPass, setNewPass] = useState("");
@@ -58,6 +57,10 @@ function ResetPassword() {
           placeholder="Enter original password"
         ></input>
         <input
+          onFocus={() => {
+            setShowValidator(true);
+          }}
+          onBlur={() => setShowValidator(false)}
           onChange={e => {
             setNewPass(e.target.value);
           }}
@@ -70,12 +73,16 @@ function ResetPassword() {
           onChange={e => {
             setConfirmPass(e.target.value);
           }}
+          onFocus={() => {
+            setShowValidator(true);
+          }}
+          onBlur={() => setShowValidator(false)}
           value={confirmPass}
           className="passwordinput"
           type="password"
           placeholder="Confirm new password"
         ></input>
-        <div className='inline-buttons'>
+        <div className="inline-buttons">
           <button
             onClick={() => {
               resetRequest();
@@ -93,9 +100,13 @@ function ResetPassword() {
             }}
           >
             Back
-
           </button>
         </div>
+        <Validator
+          password={newPass}
+          confirmPass={confirmPass}
+          show={showValidator}
+        />
       </div>
     </div>
   );
