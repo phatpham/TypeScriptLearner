@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ResetPassword.css";
 
 import Validator from "../ValidationSet/Validator";
 import { useHistory } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 function ResetPassword() {
   const history = useHistory();
@@ -13,6 +14,15 @@ function ResetPassword() {
   const userPass = useSelector(state => state.userPass);
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+
+  // useEffect(() => {
+  //   axios
+  //     .post()
+  //     .then(res => {})
+  //     .catch(res => {
+  //       history.push("/unauthorized");
+  //     });
+  // }, []);
 
   const resetRequest = () => {
     alert("Your name is " + newPass + ", Your password is " + oldPass + ".");

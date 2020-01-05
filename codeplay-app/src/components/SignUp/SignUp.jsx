@@ -25,7 +25,9 @@ function SignUp() {
           alert(res.data.message);
           history.push("/login");
         })
-        .catch();
+        .catch(res => {
+          alert("Not Okay");
+        });
     }
   };
 

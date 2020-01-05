@@ -39,6 +39,13 @@ function UserInfo() {
 
   useEffect(() => {
     changeAvatar("goblin");
+
+    // axios
+    //   .post()
+    //   .then(res => {})
+    //   .catch(res => {
+    //     history.push("/unauthorized");
+    //   });
   }, []);
 
   return (

@@ -24,6 +24,16 @@ function Game() {
   const music = useSelector(state => state.music);
   const [redirect, setRedirect] = useState("false");
 
+  //
+  useEffect(() => {
+    axios
+      .post("dsdasd")
+      .then(res => {})
+      .catch(res => {
+        history.push("/unauthorized");
+      });
+  }, []);
+
   // send request to server to run code.
   function runCode() {}
 
