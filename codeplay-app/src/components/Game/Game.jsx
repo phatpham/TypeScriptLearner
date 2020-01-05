@@ -89,14 +89,14 @@ function Game() {
       </div>
       <div className="logo">
         <h3>Code & Play</h3>
-        <button className="leaderboard-btn">Leaderboard</button>
+        <button className="leaderboard-btn btn white-btn">Leaderboard</button>
       </div>
       <div className="userinfotag">
         <div className="volume">
           <input
             type="image"
             src={music == true ? "/static/speaker.png" : "/static/mute.png"}
-            class="btn-sound"
+            className="btn-sound btn white-btn"
             onClick={() => {
               dispatch(changeMusicState(music));
               stopSound();
@@ -110,7 +110,7 @@ function Game() {
               history.push("/user");
               // dispatch(changeView("USER_INFO_PAGE"));
             }}
-            className="userinfo"
+            className="userinfo btn toprightbtn"
           >
             User info
           </button>
@@ -121,7 +121,7 @@ function Game() {
               logoff();
               history.push("/");
             }}
-            className="btn-log-off"
+            className="btn-log-off btn toprightbtn"
           >
             LOG OFF
           </button>
@@ -141,7 +141,7 @@ function Game() {
             {instrArray}
           </ol>
         </div>
-        <button className="solutiontag">Solution</button>
+        <button className="solutiontag white-btn">Solution</button>
       </div>
       <div className="code">
         {/* <AceEditor
@@ -178,7 +178,7 @@ function Game() {
             onClick={() => {
               setUnit((unit + 1) % 14);
             }}
-            className="codebutton"
+            className="codebutton btn white-btn"
           >
             Run
           </button>
@@ -186,7 +186,7 @@ function Game() {
             onClick={() => {
               restart();
             }}
-            className="codebutton"
+            className="codebutton btn white-btn"
           >
             Restart
           </button>

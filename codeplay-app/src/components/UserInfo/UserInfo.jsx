@@ -157,7 +157,7 @@ function UserInfo() {
             onClick={() => {
               history.push("/reset");
             }}
-            className="changepassword"
+            className="changepassword userinfo-btn"
           >
             Change Password
           </button>
@@ -174,16 +174,16 @@ function UserInfo() {
             {userObj.progress + "%"}
           </h2>
         </div>
-        <div className="infobuttons">
+        <div className="usernameinfoholder">
           <button
             onClick={() => {
               history.push("/game");
             }}
-            className="infobutton"
+            className="infobutton userinfo-btn"
           >
             Back
           </button>
-          <button className="infobutton">Save</button>
+          <button className="infobutton userinfo-btn">Save</button>
         </div>
       </div>
     </div>

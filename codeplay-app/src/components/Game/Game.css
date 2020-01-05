@@ -28,16 +28,21 @@
   column-gap: 5px;
 }
 
-.userinfo {
+.toprightbtn {
   font-size: 16px;
   width: 130px;
   height: 30px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-family: "Courier New", Courier, monospace;
+}
+.userinfo {
   background-color: #242a3b;
   color: #1696c4;
   border: 1px solid #1696c4;
+}
+
+.btn-log-off {
+  background-color: red;
+  color: white;
+  border: 1px solid white;
 }
 
 .chapters {
@@ -78,19 +83,10 @@
 
 .solutiontag {
   font-size: 25px;
+  font-family: 'Courier New', Courier, monospace;
   cursor: pointer;
-  font-family: "Courier New", Courier, monospace;
   border: none;
   border-radius: 8px;
-}
-
-.solutiontag:hover {
-  background-color: #d7dade;
-}
-
-.solutiontag:active {
-  background-color: black;
-  color: white;
 }
 
 .code {
@@ -106,20 +102,8 @@
 .codebutton {
   font-size: 16px;
   width: 100px;
-  font-family: "Courier New", Courier, monospace;
-  border-radius: 15px;
-  cursor: pointer;
   align-self: center;
   margin-left: 10px;
-}
-
-.codebutton:hover {
-  background-color: #d7dade;
-}
-
-.codebutton:active {
-  background-color: black;
-  color: white;
 }
 
 .output {
@@ -171,32 +155,12 @@
   border: none;
 }
 
-.btn-log-off {
-  font-size: 16px;
-  width: 130px;
-  height: 30px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-family: "Courier New", Courier, monospace;
-  background-color: red;
-  color: white;
-  border: 1px solid white;
-}
-
 .btn-sound {
   font-size: 16px;
   height: 30px;
   height: 30px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-family: "Courier New", Courier, monospace;
-  background-color: white;
   border: 1px solid white;
-  cursor: pointer;
-}
-
-.btn-sound:hover {
-  background-color: grey;
+  background: white;
 }
 
 .leaderboard-btn {
@@ -205,16 +169,19 @@
   width: 70%;
   justify-self: right;
   font-size: 18px;
+}
+
+.btn {
+  cursor: pointer;
   border-radius: 15px;
   font-family: 'Courier New', Courier, monospace;
-  cursor: pointer;
 }
 
-.leaderboard-btn:hover {
-  background-color: #d7dade;
+.white-btn:hover {
+  background-color: #bdc3ca;
 }
 
-.leaderboard-btn:active {
+.white-btn:active {
   background-color: black;
   color: white;
 }
