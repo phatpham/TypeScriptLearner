@@ -18,7 +18,7 @@ function Leaderboard() {
         time: "1m 45s"
       },
       {
-        name: "#4 sanjee",q
+        name: "#4 sanjee",
         time: "1m 48s"
       },
       {

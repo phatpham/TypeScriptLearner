@@ -73,7 +73,7 @@ def register():
 def login():
     data = request.json
     current_user = User.get_user_by_username(data['username'])
-    schema = UserSchema
+    schema = UserSchema()
     current_user_json = schema.dump(current_user)
     if not current_user:
         return {'message': 'User {} doesn\'t exist'.format(data['username'])}
