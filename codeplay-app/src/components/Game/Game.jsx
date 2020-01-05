@@ -18,6 +18,7 @@ function Game() {
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
   const dispatch = useDispatch();
   const [chapters, setChapters] = useState(["First program","Type annotation","Variables","Numbers","Strings","Boolean","Array"]);
+  const [template, setTemplate] = useState("console.log(\"Hello world\");\nconsole.log(3+2);");
   const [code, setCode] = useState("console.log(\"Hello world\");\nconsole.log(3+2);");
   const [unit, setUnit] = useState(2);
   const [latest, setLatest] = useState(4);
@@ -29,14 +30,14 @@ function Game() {
   const [redirect, setRedirect] = useState("false");
 
   //
-  useEffect(() => {
-    axios
-      .post("dsdasd")
-      .then(res => {})
-      .catch(res => {
-        history.push("/unauthorized");
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post("dsdasd")
+  //     .then(res => {})
+  //     .catch(res => {
+  //       history.push("/unauthorized");
+  //     });
+  // }, []);
 
   // send request to server to run code.
   function runCode() {}
@@ -46,8 +47,9 @@ function Game() {
   }
 
   function restart() {
-    setCode("");
+    setCode(template);
   }
+
 
   // useEffect(() => {
   //   axios
@@ -163,8 +165,8 @@ function Game() {
             fontSize={15}
             height="280px"
             width="560px"
-            onChange={onChange}
             value={code}
+            onChange = {onChange}
             name="UNIQUE_ID_OF_DIV"
             editorProps={{ $blockScrolling: true }}
           />
@@ -182,7 +184,7 @@ function Game() {
           </button>
           <button
             onClick={() => {
-              setCode("");
+              restart();
             }}
             className="codebutton"
           >
