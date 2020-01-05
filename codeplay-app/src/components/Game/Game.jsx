@@ -18,13 +18,11 @@ function Game() {
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
   const dispatch = useDispatch();
 
- 
-  const [template, setTemplate] = useState("console.log(\"Hello world\");\nconsole.log(3+2);");
- 
+  const [template, setTemplate] = useState(
+    'console.log("Hello world");\nconsole.log(3+2);'
+  );
 
-  const [chapters, setChapters] = useState([
-    
-  ]);
+  const [chapters, setChapters] = useState([]);
 
   const [unit, setUnit] = useState(2);
   const [latest, setLatest] = useState(4);
@@ -46,7 +44,7 @@ function Game() {
       .post("http://localhost:5000/story/load")
       .then(res => {
         setChapters(res.data.message);
-        axios.post("http://localhost:5000/story/load/5").then(res => {
+        axios.post("http://localhost:5000/story/load/1").then(res => {
           setInstructions(res.data.instruction);
           setStory(res.data.storyDescription);
           setOptions({
@@ -63,19 +61,8 @@ function Game() {
       });
   }, []);
 
-
   // send request to server to run code.
   function runCode() {}
-
-  function onChange(newValue) {
-    setCode(newValue);
-  }
-
-  function restart() {
-    setCode(template);
-  }
-
-
 
   const logoff = () => {
     localStorage.removeItem("access_token");
@@ -188,8 +175,6 @@ function Game() {
             fontSize={15}
             height="280px"
             width="560px"
-            value={code}
-            onChange = {onChange}
             name="UNIQUE_ID_OF_DIV"
             editorProps={{ $blockScrolling: true }}
           />
@@ -205,12 +190,7 @@ function Game() {
           >
             Run
           </button>
-          <button
-            onClick={() => {
-              restart();
-            }}
-            className="codebutton btn white-btn"
-          >
+          <button onClick={() => {}} className="codebutton btn white-btn">
             Restart
           </button>
           <Stopwatch start={new Date()} />
