@@ -2,11 +2,13 @@
 #This need to be updated after we create different table (use forgein key)
 
 from flask import Blueprint,request, render_template
-from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, 
+from flask_jwt_extended import (JWTManager, create_access_token, create_refresh_token, jwt_required, 
                                 jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 from flask_cors import cross_origin
 from api.utils.response import custom_response
 from api.model.UserModel import User, UserSchema
+from api.model.RevokedToken import RevokedToken, RevokedTokenSchema
+
 
 userBP = Blueprint('userBP', __name__, url_prefix='/user')
 
@@ -26,18 +28,18 @@ def user():
 
 
 #Change password
-@jwt_required
+#@jwt_required
 @userBP.route('/update', methods = ['PUT'])
 def change_password():
     if request.method == 'PUT':
-        
-        #need revision
-
-        username = request.json('username')
-        password = request.json('password')
-        user = User.update(username,password)
-        return 
-
+        username = request.json['username']
+        old_password = request.json['old_password']
+        new_password = request.json['new_password']
+        value = User.update(the_username=username, old_password=old_password, new_password=new_password) 
+        if value:
+            return {'message':'got it'}
+        else:
+            return {'message':'failed'}
 
 @userBP.route('/signup', methods = ['POST'])
 def register():
@@ -45,22 +47,21 @@ def register():
         data = request.json
 
         #Reject if user already existed
-        if UserModel.find_by_username(data['username']):
-            return {'message': 'User {} already exists'.format(data['username'])}
-
+        if User.get_user_by_username(data['username']):
+            return custom_response(500, {'message': 'User {} already exists'.format(data['username'])})
+        print(data['password'])
         #create new user
         new_user = User(
             username = data['username'],
             #need revision
             password = User.generate_hash(data['password'])
         )
-
         #Save user to database and send back tokens
         try:
             new_user.save_to_db()
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
-            return {'message': 'User {} already existed'.format( data['username']),
+            return {'message': 'User {} created'.format( data['username']),
                     'access_token': access_token,
                     'refresh_token': refresh_token
             }
@@ -73,10 +74,10 @@ def register():
 def login():
     data = request.json
     current_user = User.get_user_by_username(data['username'])
-    schema = UserSchema
+    schema = UserSchema()
     current_user_json = schema.dump(current_user)
     if not current_user:
-        return {'message': 'User {} doesn\'t exist'.format(data['username'])}
+        return custom_response(500,{'message': 'User {} doesn\'t exist'.format(data['username'])})
         
     #if User.verify_hash(data['password']) == current_user.password:
     if data['password'] == current_user.password: 
@@ -88,9 +89,17 @@ def login():
                 'refresh_token': refresh_token
         }
     else:
-        return {'message': 'Wrong credentials'}
+        return custom_response(500, {"message":"Wrong password"})
 
+#log out access token
 @userBP.route('/logout')
 def logout():
-    #to be implemented
-    pass
+    @jwt_required
+    def post(self):
+        jti = get_raw_jwt()['jti']
+        try:
+            revoked_token = RevokedToken(jti = jti)
+            revoked_token.add()
+            return {'message': 'Access token has been revoked'}
+        except:
+            return custom_response(500, {'message': 'Something went wrong'})

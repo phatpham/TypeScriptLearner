@@ -7,6 +7,7 @@ from http import HTTPStatus
 
 from .response import custom_response
 from api.views import interpreter_router, user_router, upload_router, story_router, leaderboard_router
+from api.model.RevokedToken import RevokedToken, RevokedTokenSchema
 
 from .database import db
 from flask_cors import CORS
@@ -47,6 +48,10 @@ def create_app(config):
     def not_found(e):
         return custom_response(status_code=HTTPStatus.NOT_FOUND, message='Not Found')
 
+    @app.errorhandler(401)
+    def reject(e):
+        return custom_response(status_code=HTTPStatus.UNAUTHORIZED, message='Access Denied')
+
     @app.route('/')
     def home():
         return render_template('index.html')
@@ -55,6 +60,12 @@ def create_app(config):
     def catch_all(path):
         return render_template("index.html")
 
+
+    @jwt.token_in_blacklist_loader
+    def check_if_token_in_blacklist(decrypted_token):
+        jti = decrypted_token['jti']
+        return RevokedToken.is_jti_blacklisted(jti)
+    
     # why do I need this after refactoring?
     db.init_app(app)
 
