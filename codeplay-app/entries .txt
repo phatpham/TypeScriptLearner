@@ -1,0 +1,54 @@
+instruction "instruction 1"
+solution "console.log("1")"
+storyID 1
+option_1 NULL
+option_2 null
+option_3 null
+option_4 null
+template null
+description "Wizard kills boy"
+unitName "First program"
+
+instruction "instruction 2"
+solution  "console.log("2")"
+storyID 2
+option_1 null
+option_2 null
+option_3 null
+option_4 null
+template null
+description "Wizard kills girl"
+unitName "Variable"
+
+instruction "instruction 3"
+solution console.log("1")
+storyID 3
+option_1 null
+option_2 null
+option_3 null
+option_4 null
+template null
+description "Wizard kills asian"
+unitName "Numbers"
+
+instruction "instruction 4"
+solution "length"
+storyID 4
+option_1 "length"
+option_2 "max"
+option_3 "min"
+option_4 "contains"
+template "{template:["print(x.","GAP",");"]}"
+description "Wizard kills dog"
+unitName "Strings"
+
+instruction "instruction 5"
+solution "max"
+storyID 5
+option_1 "length"
+option_2 "max"
+option_3 "min"
+option_4 "contains"
+template "{template:["print(x.","GAP",");"]}"
+description "Wizard kills cat"
+unitName "Array"

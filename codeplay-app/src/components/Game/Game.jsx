@@ -17,24 +17,51 @@ function Game() {
   const history = useHistory();
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
   const dispatch = useDispatch();
-  const [chapters, setChapters] = useState(["First program","Type annotation","Variables","Numbers","Strings","Boolean","Array"]);
-  const [code, setCode] = useState("console.log(\"Hello world\");\nconsole.log(3+2);");
+  const [chapters, setChapters] = useState([
+    "First program",
+    "Type annotation",
+    "Variables",
+    "Numbers",
+    "Strings",
+    "Boolean",
+    "Array"
+  ]);
+  const [code, setCode] = useState(
+    'console.log("Hello world");\nconsole.log(3+2);'
+  );
   const [unit, setUnit] = useState(2);
   const [latest, setLatest] = useState(4);
   const [story, setStory] = useState("One day everybody died.");
-  const [instructions, setInstructions] = useState(["Write some stuff","Change some stuff"]);
+  const [instructions, setInstructions] = useState([
+    "Write some stuff",
+    "Change some stuff"
+  ]);
   const [output, setOutput] = useState("Hello world");
   const [solution, setSolution] = useState("");
   const music = useSelector(state => state.music);
   const [redirect, setRedirect] = useState("false");
+  const [options, setOptions] = useState({});
 
   //
   useEffect(() => {
     axios
-      .post("dsdasd")
-      .then(res => {})
+      .post("http://localhost:5000/story/load")
+      .then(res => {
+        setChapters(res.data.message);
+        axios.post("http://localhost:5000/story/load/5").then(res => {
+          setInstructions(res.data.instruction);
+          setStory(res.data.storyDescription);
+          setOptions({
+            one: res.data.option_1,
+            two: res.data.option_2,
+            three: res.data.option_3,
+            four: res.data.option_4
+          });
+          setAnswerMode(res.data.option_1 === null ? "EDITOR" : "DRAG");
+        });
+      })
       .catch(res => {
-        history.push("/unauthorized");
+        alert("Loading Error");
       });
   }, []);
 
@@ -49,22 +76,8 @@ function Game() {
     setCode("");
   }
 
-  // useEffect(() => {
-  //   axios
-  //     .get("/load/game")
-  //     .then(res => {
-  //       setStory(res.data.story);
-  //       setSolution(res.data.solution);
-  //       setUnit(res.data.unit);
-  //     })
-  //     .catch(res => {
-  //       alert("loading failure");
-  //     }, []);
-  // });
-
   const logoff = () => {
-    localStorage.setItem("user", "");
-    localStorage.setItem("loginStatus", "OFF");
+    localStorage.removeItem("access_token");
   };
 
   const stopSound = () => {
@@ -74,14 +87,27 @@ function Game() {
     characterMusic.muted = music;
   };
 
-  let instrArray = [];
   let chaptArray = [];
 
   return (
     <div className="gamepage">
       <div className="chapters">
-        {chapters.forEach((c,i) => {
-          chaptArray.push(<div className={unit === i ? "chapterholder current" : latest > i ? "chapterholder done" : latest === i ? "chapterholder pending" : "chapterholder"}>{c}</div>);
+        {chapters.forEach((c, i) => {
+          chaptArray.push(
+            <div
+              className={
+                unit === i
+                  ? "chapterholder current"
+                  : latest > i
+                  ? "chapterholder done"
+                  : latest === i
+                  ? "chapterholder pending"
+                  : "chapterholder"
+              }
+            >
+              {c}
+            </div>
+          );
         })}
         {chaptArray}
       </div>
@@ -132,12 +158,7 @@ function Game() {
       </div>
       <div className="instructionssolution">
         <div className="instructions" align="left">
-          <ol>
-            {instructions.forEach(s => {
-              instrArray.push(<li>{s}</li>);
-            })}
-            {instrArray}
-          </ol>
+          <p>{instructions}</p>
         </div>
         <button className="solutiontag">Solution</button>
       </div>
@@ -169,7 +190,7 @@ function Game() {
             editorProps={{ $blockScrolling: true }}
           />
         ) : (
-          <DragDrop />
+          <DragDrop options={options} />
         )}
         <div className="codebuttons">
           <button

@@ -4,19 +4,19 @@ import "./DragDrop.css";
 function DragDrop(prop) {
   const [options, setOptions] = useState([
     {
-      name: "number",
+      name: prop.options.one,
       visible: true
     },
     {
-      name: "string",
+      name: prop.options.two,
       visible: true
     },
     {
-      name: "boolean",
+      name: prop.options.three,
       visible: true
     },
     {
-      name: "void",
+      name: prop.options.four,
       visible: true
     }
   ]);
@@ -32,7 +32,7 @@ function DragDrop(prop) {
   const onDrop = ev => {
     let name = ev.dataTransfer.getData("name");
     document.getElementById("gap").innerText = name;
-    let newOptions = state.options;
+    let newOptions = options;
 
     console.log(newOptions);
     for (var i in newOptions) {
@@ -43,7 +43,7 @@ function DragDrop(prop) {
       }
     }
 
-    setOptions({ options: prop.options });
+    setOptions({ newOptions });
   };
 
   let visibleOptions = [];
@@ -63,8 +63,8 @@ function DragDrop(prop) {
         = false;
       </div>
       <div className="options">
-        {console.log(state.options)}
-        {state.options.forEach(o => {
+        {console.log(options)}
+        {options.forEach(o => {
           console.log(o.visible);
           visibleOptions.push(
             o.visible ? (

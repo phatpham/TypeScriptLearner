@@ -30,6 +30,8 @@ class User(db.Model):
     @staticmethod
     def update(the_username,old_password, new_password):
         user = User.query.filter_by(username=the_username).first()
+        print(user)
+        print(sha256.verify(old_password, user.password))
         if sha256.verify(old_password, user.password):
             user.password = sha256.hash(new_password)
             try:
@@ -50,7 +52,9 @@ class User(db.Model):
 
     @staticmethod
     def get_user_by_username(name):
+        print("username "+name)
         user = User.query.filter_by(username=name).first()
+        print(user)
         return user
     
     @staticmethod

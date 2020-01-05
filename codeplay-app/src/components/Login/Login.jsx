@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 
 import { useDispatch } from "react-redux";
@@ -18,15 +18,15 @@ function Login() {
   /**
    * TODO: Add actual URL for login
    */
-  const loginRequest = () => {
-    // setLoading(true);
-    // setTimeout(() => {
-    //   setLoading(false);
-    //   history.push("/game");
 
-    //   localStorage.setItem("loginStatus", "ON");
-    //   localStorage.setItem("user", "xhao98");
-    // }, 2000);
+  useEffect(() => {
+    if (localStorage.getItem("access_token") !== null) {
+      history.push("/game");
+    }
+  }, []);
+
+  const loginRequest = () => {
+    setLoading(true);
 
     axios
       .post("http://localhost:5000/user/login", {
@@ -34,13 +34,16 @@ function Login() {
         password: pass
       })
       .then(res => {
+        setLoading(false);
         dispatch(loadUser(res.data.user));
         dispatch(loadToken(res.data.access_token));
+        localStorage.setItem("access_token", res.data.access_token);
         setStatus(res.data.message);
         history.push("/game");
       })
       .catch(res => {
-        setStatus("Network Error");
+        setLoading(false);
+        setStatus("Login Failed");
       });
   };
   return (
