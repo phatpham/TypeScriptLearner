@@ -23,7 +23,9 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    db_uri = 'mysql+pymysql://root:1234@localhost/TypeScript'
+    db_path = os.path.join(os.path.dirname(__file__), '../../test.db')
+    print(db_path)
+    db_uri = 'sqlite:///{}'.format(db_path)
     SQLALCHEMY_DATABASE_URI = db_uri
     SQLALCHEMY_ECHO = False
     JWT_SECRET_KEY = "random string that is very secret"
