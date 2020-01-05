@@ -4,12 +4,14 @@ import userReducer from "./user";
 import musicReducer from "./music";
 
 import { combineReducers } from "redux";
+import tokenReducer from "./token";
 
 const allReducers = combineReducers({
   avatar: avatarReducer,
   loginStatus: loginStatusReducer,
   user: userReducer,
-  music: musicReducer
+  music: musicReducer,
+  token: tokenReducer
 });
 
 export default allReducers;

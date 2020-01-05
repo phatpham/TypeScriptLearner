@@ -40,7 +40,11 @@ function UserInfo() {
     <div className="userinfopage">
       {/* <audio autoPlay id="audio" src={avatar + ".wav"}></audio> */}
       <div className="avatarholder">
-        <img alt="#" src={avatar + ".png"} className="avatarimage"></img>
+        <img
+          alt
+          src={"/static/" + avatar + ".png"}
+          className="avatarimage"
+        ></img>
         <div className="avatars">
           <button
             onClick={() => {
@@ -48,7 +52,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="goblin1.png"></img>
+            <img alt="#" className="avicon" src="/static/goblin1.png"></img>
           </button>
           <audio src=""></audio>
           <button
@@ -57,7 +61,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="fairy1.png"></img>
+            <img alt className="avicon" src="/static/fairy1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -65,7 +69,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="wizard1.png"></img>
+            <img alt="#" className="avicon" src="/static/wizard1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -73,7 +77,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="witch1.png"></img>
+            <img alt="#" className="avicon" src="/static/witch1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -81,7 +85,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="ogre1.png"></img>
+            <img alt="#" className="avicon" src="/static/ogre1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -89,7 +93,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="troll1.png"></img>
+            <img alt="#" className="avicon" src="/static/troll1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -97,7 +101,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="assassin1.png"></img>
+            <img alt="#" className="avicon" src="/static/assassin1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -105,7 +109,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="archer1.png"></img>
+            <img alt="#" className="avicon" src="/static/archer1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -113,7 +117,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="elf1.png"></img>
+            <img alt="#" className="avicon" src="/static/elf1.png"></img>
           </button>
           <button
             onClick={() => {
@@ -121,7 +125,7 @@ function UserInfo() {
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="knight1.png"></img>
+            <img alt="#" className="avicon" src="/static/knight1.png"></img>
           </button>
         </div>
       </div>

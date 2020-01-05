@@ -10,11 +10,11 @@ import { useHistory } from "react-router-dom";
 
 function Login() {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const [pass, setPass] = useState("");
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status] = useState("Login Failed");
+  const [status, setStatus] = useState("Login Failed");
   /**
    * TODO: Add actual URL for login
    */
@@ -30,14 +30,16 @@ function Login() {
 
     axios
       .post("http://localhost:5000/user/login", {
-        username: "user0",
-        password: "user0"
+        username: user,
+        password: pass
       })
       .then(res => {
-        alert(res.data.access_token);
+        // dispatch()
+        setStatus(res.data.message);
+        history.push("/game");
       })
       .catch(res => {
-        alert(res);
+        setStatus("Network Error");
       });
   };
   return (

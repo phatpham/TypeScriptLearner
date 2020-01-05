@@ -120,7 +120,7 @@ function Game() {
         <div className="volume">
           <input
             type="image"
-            src={music == true ? "speaker.png" : "mute.png"}
+            src={music == true ? "/static/speaker.png" : "/static/mute.png"}
             class="btn-sound"
             onClick={() => {
               dispatch(changeMusicState(music));
