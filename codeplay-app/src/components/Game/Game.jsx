@@ -17,18 +17,15 @@ function Game() {
   const history = useHistory();
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
   const dispatch = useDispatch();
+
+ 
+  const [template, setTemplate] = useState("console.log(\"Hello world\");\nconsole.log(3+2);");
+ 
+
   const [chapters, setChapters] = useState([
-    "First program",
-    "Type annotation",
-    "Variables",
-    "Numbers",
-    "Strings",
-    "Boolean",
-    "Array"
+    
   ]);
-  const [code, setCode] = useState(
-    'console.log("Hello world");\nconsole.log(3+2);'
-  );
+
   const [unit, setUnit] = useState(2);
   const [latest, setLatest] = useState(4);
   const [story, setStory] = useState("One day everybody died.");
@@ -43,6 +40,7 @@ function Game() {
   const [options, setOptions] = useState({});
 
   //
+
   useEffect(() => {
     axios
       .post("http://localhost:5000/story/load")
@@ -65,6 +63,7 @@ function Game() {
       });
   }, []);
 
+
   // send request to server to run code.
   function runCode() {}
 
@@ -73,8 +72,10 @@ function Game() {
   }
 
   function restart() {
-    setCode("");
+    setCode(template);
   }
+
+
 
   const logoff = () => {
     localStorage.removeItem("access_token");
@@ -116,14 +117,14 @@ function Game() {
       </div>
       <div className="logo">
         <h3>Code & Play</h3>
-        <button className="leaderboard-btn">Leaderboard</button>
+        <button className="leaderboard-btn btn white-btn">Leaderboard</button>
       </div>
       <div className="userinfotag">
         <div className="volume">
           <input
             type="image"
             src={music == true ? "/static/speaker.png" : "/static/mute.png"}
-            class="btn-sound"
+            className="btn-sound btn white-btn"
             onClick={() => {
               dispatch(changeMusicState(music));
               stopSound();
@@ -137,7 +138,7 @@ function Game() {
               history.push("/user");
               // dispatch(changeView("USER_INFO_PAGE"));
             }}
-            className="userinfo"
+            className="userinfo btn toprightbtn"
           >
             User info
           </button>
@@ -148,7 +149,7 @@ function Game() {
               logoff();
               history.push("/");
             }}
-            className="btn-log-off"
+            className="btn-log-off btn toprightbtn"
           >
             LOG OFF
           </button>
@@ -163,7 +164,7 @@ function Game() {
         <div className="instructions" align="left">
           <p>{instructions}</p>
         </div>
-        <button className="solutiontag">Solution</button>
+        <button className="solutiontag white-btn">Solution</button>
       </div>
       <div className="code">
         {/* <AceEditor
@@ -187,8 +188,8 @@ function Game() {
             fontSize={15}
             height="280px"
             width="560px"
-            onChange={onChange}
             value={code}
+            onChange = {onChange}
             name="UNIQUE_ID_OF_DIV"
             editorProps={{ $blockScrolling: true }}
           />
@@ -200,15 +201,15 @@ function Game() {
             onClick={() => {
               setUnit((unit + 1) % 14);
             }}
-            className="codebutton"
+            className="codebutton btn white-btn"
           >
             Run
           </button>
           <button
             onClick={() => {
-              setCode("");
+              restart();
             }}
-            className="codebutton"
+            className="codebutton btn white-btn"
           >
             Restart
           </button>
