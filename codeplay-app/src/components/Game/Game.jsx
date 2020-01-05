@@ -95,6 +95,9 @@ function Game() {
         {chapters.forEach((c, i) => {
           chaptArray.push(
             <div
+              onClick={() => {
+                // setLatest();
+              }}
               className={
                 unit === i
                   ? "chapterholder current"
