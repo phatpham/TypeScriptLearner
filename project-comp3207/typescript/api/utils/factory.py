@@ -9,20 +9,22 @@ from .response import custom_response
 from api.views import interpreter_router, user_router, upload_router, story_router, leaderboard_router
 
 from .database import db
+from flask_cors import CORS
 
 
 def create_app(config):
 
     app = Flask(__name__, static_folder='../../templates/build/static', template_folder='../../templates/build')
-    
+    CORS(app)
+
     #Load config
     app.config.from_object(config)
-    
+    app.config['CORS_HEADER'] = 'Content-Type'
     #JWT
     jwt = JWTManager(app)
 
     #Register views
-    app.register_blueprint(interpreter_router.interp)
+    app.register_blueprint(interpreter_router.interp) #BUG
     app.register_blueprint(user_router.userBP)
     app.register_blueprint(upload_router.uploadBP)
     app.register_blueprint(leaderboard_router.leaderBP)
@@ -48,6 +50,10 @@ def create_app(config):
     @app.route('/')
     def home():
         return render_template('index.html')
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    def catch_all(path):
+        return render_template("index.html")
 
     # why do I need this after refactoring?
     db.init_app(app)

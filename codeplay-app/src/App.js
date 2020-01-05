@@ -33,10 +33,6 @@ function App() {
       <audio id="background" autoPlay loop src="background.wav"></audio>
       <audio autoPlay id="character" src={avatar + ".wav"}></audio>
       <Route
-        path="/home"
-        render={routerProps => <Home routerProps={routerProps} />}
-      ></Route>
-      <Route
         path="/login"
         render={routerProps => <Login routerProps={routerProps} />}
       ></Route>
@@ -55,6 +51,10 @@ function App() {
       <Route
         path="/reset"
         render={routerProps => <ResetPassword routerProps={routerProps} />}
+      ></Route>
+      <Route
+        path="/"
+        render={routerProps => <Home routerProps={routerProps} />}
       ></Route>
     </React.Fragment>
   );

@@ -4,7 +4,7 @@
 from flask import Blueprint,request, render_template
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, 
                                 jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
-
+from flask_cors import cross_origin
 from api.utils.response import custom_response
 from api.model.UserModel import User, UserSchema
 
@@ -42,7 +42,7 @@ def change_password():
 @userBP.route('/signup', methods = ['POST'])
 def register():
     if request.method == 'POST':
-        data = request.json()
+        data = request.json
 
         #Reject if user already existed
         if UserModel.find_by_username(data['username']):
@@ -66,15 +66,16 @@ def register():
             }
         except:
             return custom_response(500, {'message':'User creation failed'})
-
+@cross_origin
 @userBP.route('/login', methods = ['POST'])
 def login():
-    data = request.json()
+    data = request.json
     current_user = User.get_user_by_username(data['username'])
     if not current_user:
         return {'message': 'User {} doesn\'t exist'.format(data['username'])}
         
-    if User.verify_hash(data['password']) == current_user.password:
+    #if User.verify_hash(data['password']) == current_user.password:
+    if data['password'] == current_user.password: 
         access_token = create_access_token(identity = data['username'])
         refresh_token = create_refresh_token(identity = data['username'])
         return {'message': 'Logged in as {}'.format(current_user.username),

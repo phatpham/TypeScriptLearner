@@ -9,23 +9,6 @@ import { useHistory } from "react-router-dom";
 function Home() {
   const history = useHistory();
 
-  const [setUnit] = useState(2);
-  const [setStory] = useState(" ");
-  const [setSolution] = useState("");
-
-  useEffect(() => {
-    axios
-      .get("/load/game")
-      .then(res => {
-        setStory(res.data.story);
-        setSolution(res.data.solution);
-        setUnit(res.data.unit);
-      })
-      .catch(res => {
-        alert("loading failure");
-      }, []);
-  });
-
   const login = () => {
     history.push("/login");
   };

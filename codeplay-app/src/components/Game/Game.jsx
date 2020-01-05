@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { changeView } from "../../actions";
 
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-typescript";
@@ -52,7 +51,6 @@ function Game() {
     localStorage.setItem("user", "");
     localStorage.setItem("loginStatus", "OFF");
   };
-  // history.push("/home");
 
   const stopSound = () => {
     const backgroundMusic = document.getElementById("background");
@@ -145,7 +143,7 @@ function Game() {
           <button
             onClick={() => {
               logoff();
-              history.push("/home");
+              history.push("/");
             }}
             className="btn-log-off"
           >

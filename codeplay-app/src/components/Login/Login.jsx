@@ -19,22 +19,25 @@ function Login() {
    * TODO: Add actual URL for login
    */
   const loginRequest = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      history.push("/game");
+    // setLoading(true);
+    // setTimeout(() => {
+    //   setLoading(false);
+    //   history.push("/game");
 
-      localStorage.setItem("loginStatus", "ON");
-      localStorage.setItem("user", "xhao98");
-    }, 2000);
+    //   localStorage.setItem("loginStatus", "ON");
+    //   localStorage.setItem("user", "xhao98");
+    // }, 2000);
 
     axios
-      .get("/login")
+      .post("http://localhost:5000/user/login", {
+        username: "user0",
+        password: "user0"
+      })
       .then(res => {
-        alert("Login Successful");
+        alert(res.data.access_token);
       })
       .catch(res => {
-        alert("Login Failed");
+        alert(res);
       });
   };
   return (
@@ -82,7 +85,6 @@ function Login() {
               }}
             >
               Sign up
-
             </button>
           </div>
           <h2 className="status">{status}</h2>
