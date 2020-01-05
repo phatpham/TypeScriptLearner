@@ -12,7 +12,7 @@ def generate_hash(password):
         return sha256.hash(password)
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:1@35.242.191.40/typescript"
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345@146.148.114.174/users'
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'Secret String')
     ADMIN_AUTH_USERNAME = os.getenv('ADMIN_AUTH_USERNAME', 'admin')
     ADMIN_AUTH_PASSWORD = generate_hash(os.getenv('ADMIN_AUTH_PASSWORD', 'John Wick'))
@@ -23,10 +23,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    db_path = os.path.join(os.path.dirname(__file__), '../../test.db')
-    print(db_path)
-    db_uri = 'sqlite:///{}'.format(db_path)
-    SQLALCHEMY_DATABASE_URI = db_uri
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345@146.148.114.174/users'
     SQLALCHEMY_ECHO = False
     JWT_SECRET_KEY = "random string that is very secret"
     ADMIN_AUTH_USERNAME = 'admin'

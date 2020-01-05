@@ -52,6 +52,7 @@ def create_app(config):
     def reject(e):
         return custom_response(status_code=HTTPStatus.UNAUTHORIZED, message='Access Denied')
 
+    #Leave routing to react
     @app.route('/')
     def home():
         return render_template('index.html')

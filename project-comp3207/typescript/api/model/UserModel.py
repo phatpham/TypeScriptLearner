@@ -30,6 +30,8 @@ class User(db.Model):
     @staticmethod
     def update(the_username,old_password, new_password):
         user = User.query.filter_by(username=the_username).first()
+
+        
         if sha256.verify(old_password, user.password):
             user.password = sha256.hash(new_password)
             try:
