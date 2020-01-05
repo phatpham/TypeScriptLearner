@@ -48,8 +48,10 @@ def register():
 
         #Reject if user already existed
         if User.get_user_by_username(data['username']):
+
             return custom_response(500, {'message': 'User {} already exists'.format(data['username'])})
         print(data['password'])
+
         #create new user
         new_user = User(
             username = data['username'],
