@@ -28,7 +28,7 @@ function App() {
   //ADD OTHER ROUTES HERE
   return (
     <React.Fragment>
-      <audio
+      {/* <audio
         id="background"
         autoPlay="true"
         loop
@@ -38,7 +38,7 @@ function App() {
         autoPlay
         id="character"
         src={"/static/" + userObj.avatar + ".wav"}
-      ></audio>
+      ></audio> */}
       <Switch>
         <Route
           path="/login"

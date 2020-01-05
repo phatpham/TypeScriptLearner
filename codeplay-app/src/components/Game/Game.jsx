@@ -9,7 +9,7 @@ import "./Game.css";
 import axios from "axios";
 import DragDrop from "./DragDrop";
 import Stopwatch from "./stopwatch";
-import { changeMusicState } from "../../actions/";
+import { changeMusicState, updateTimer } from "../../actions/";
 import { useHistory } from "react-router-dom";
 
 function Game() {
@@ -24,8 +24,8 @@ function Game() {
 
   const [chapters, setChapters] = useState([]);
 
-  const [unit, setUnit] = useState(2);
-  const [latest, setLatest] = useState(4);
+  const [unit, setUnit] = useState(1);
+  const user = useSelector(state => state.user);
   const [story, setStory] = useState("One day everybody died.");
   const [instructions, setInstructions] = useState([
     "Write some stuff",
@@ -39,12 +39,30 @@ function Game() {
 
   //
 
+  const loadChapter = chapterID => {
+    if (chapterID <= user.progress + 1) {
+      axios.post("http://localhost:5000/story/load/" + chapterID).then(res => {
+        setInstructions(res.data.instruction);
+        setStory(res.data.storyDescription);
+        setOptions({
+          one: res.data.option_1,
+          two: res.data.option_2,
+          three: res.data.option_3,
+          four: res.data.option_4
+        });
+        setUnit(chapterID);
+        setAnswerMode(res.data.option_1 === null ? "EDITOR" : "DRAG");
+        dispatch(updateTimer({ minutes: 0, seconds: 0 }));
+      });
+    }
+  };
+
   useEffect(() => {
     axios
       .post("http://localhost:5000/story/load")
       .then(res => {
         setChapters(res.data.message);
-        axios.post("http://localhost:5000/story/load/1").then(res => {
+        axios.post("http://localhost:5000/story/load/4").then(res => {
           setInstructions(res.data.instruction);
           setStory(res.data.storyDescription);
           setOptions({
@@ -80,24 +98,24 @@ function Game() {
   return (
     <div className="gamepage">
       <div className="chapters">
-        {chapters.forEach((c, i) => {
+        {chapters.forEach(c => {
           chaptArray.push(
-            <div
+            <button
               onClick={() => {
-                // setLatest();
+                loadChapter(c.id);
               }}
               className={
-                unit === i
+                unit === c.id
                   ? "chapterholder current"
-                  : latest > i
+                  : user.progress + 1 > c.id
                   ? "chapterholder done"
-                  : latest === i
+                  : user.progress + 1 === c.id
                   ? "chapterholder pending"
                   : "chapterholder"
               }
             >
-              {c}
-            </div>
+              {c.name}
+            </button>
           );
         })}
         {chaptArray}

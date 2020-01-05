@@ -42,7 +42,7 @@ class Story(db.Model):
         stories = Story.query.all()
         lstObj = []
         for story in stories:
-            lstObj.append(story.unitName)
+            lstObj.append({"id":story.storyID,"name":story.unitName})
         print(lstObj)
         return lstObj
     

@@ -30,10 +30,28 @@ class User(db.Model):
     @staticmethod
     def update(the_username,old_password, new_password):
         user = User.query.filter_by(username=the_username).first()
-        print(user)
+       
         print(sha256.verify(old_password, user.password))
         if sha256.verify(old_password, user.password):
             user.password = sha256.hash(new_password)
+            try:
+                db.session.commit()
+                return True
+            except Exception as e:
+                #log your exception in the way you want -> log to file, log as error with default logging, send by email. It's upon you
+                db.session.rollback()
+                db.session.flush() # for resetting non-commited .add()
+                return False
+
+
+
+    @staticmethod
+    def update_avatar(username,avatar):
+        user = User.query.filter_by(username=username).first()
+        
+        print(sha256.verify(old_password, user.password))
+        if user:
+            user.avatar = avatar
             try:
                 db.session.commit()
                 return True

@@ -29,6 +29,18 @@ def user():
 
 #Change password
 # @jwt_required
+
+@userBP.route('/update/avatar', methods = ['PUT'])
+def change_avatar():
+    if request.method == 'PUT':
+        username = request.json['username']
+        avatar = request.json['avatar']
+        value = User.update_avatar(avatar=avatar,username=username); 
+        if value:
+            return custom_response(200, {'message':'got it'})
+        else:
+            return custom_response(500, {'message':'failed'})
+
 @userBP.route('/update', methods = ['PUT'])
 def change_password():
     if request.method == 'PUT':

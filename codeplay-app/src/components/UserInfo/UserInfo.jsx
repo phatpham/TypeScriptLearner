@@ -38,7 +38,9 @@ function UserInfo() {
   };
 
   useEffect(() => {
-    changeAvatar("goblin");
+    if (userObj.avatar === null) {
+      changeAvatar("goblin");
+    }
 
     // axios
     //   .post()
@@ -171,7 +173,7 @@ function UserInfo() {
         <div className="usernameinfoholder">
           <h2 className="label">Progress</h2>
           <h2 className="info" align="left">
-            {userObj.progress + "%"}
+            {Math.round((userObj.progress / 9) * 100) + "%"}
           </h2>
         </div>
         <div className="usernameinfoholder">

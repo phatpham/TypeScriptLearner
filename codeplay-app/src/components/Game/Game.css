@@ -83,7 +83,7 @@
 
 .solutiontag {
   font-size: 25px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   cursor: pointer;
   border: none;
   border-radius: 8px;
@@ -133,6 +133,7 @@
   align-content: center;
   margin-bottom: 5px;
   border-radius: 7px;
+  width: 100%;
 }
 
 .done {
@@ -174,7 +175,7 @@
 .btn {
   cursor: pointer;
   border-radius: 15px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .white-btn:hover {

@@ -34,7 +34,6 @@ function DragDrop(prop) {
     document.getElementById("gap").innerText = name;
     let newOptions = options;
 
-    console.log(newOptions);
     for (var i in newOptions) {
       if (newOptions[i].name == name) {
         newOptions[i].visible = false;
@@ -42,8 +41,8 @@ function DragDrop(prop) {
         newOptions[i].visible = true;
       }
     }
-
-    setOptions({ newOptions });
+    console.log(newOptions);
+    setOptions(newOptions);
   };
 
   let visibleOptions = [];
@@ -63,12 +62,11 @@ function DragDrop(prop) {
         = false;
       </div>
       <div className="options">
-        {console.log(options)}
+        {console.log(visibleOptions)}
         {options.forEach(o => {
-          console.log(o.visible);
           visibleOptions.push(
             o.visible ? (
-              <div className="option">
+              <div id={o.name} className="option">
                 <p draggable="true" onDragStart={e => onDragStart(e, o.name)}>
                   {o.name}
                 </p>
