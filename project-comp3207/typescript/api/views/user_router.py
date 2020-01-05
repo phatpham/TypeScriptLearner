@@ -45,7 +45,7 @@ def register():
         data = request.json
 
         #Reject if user already existed
-        if UserModel.find_by_username(data['username']):
+        if User.get_user_by_username(data['username']):
             return {'message': 'User {} already exists'.format(data['username'])}
 
         #create new user

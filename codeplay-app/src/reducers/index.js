@@ -1,17 +1,17 @@
-import avatarReducer from "./avatar";
 import loginStatusReducer from "./loginStatus";
 import userReducer from "./user";
 import musicReducer from "./music";
 
 import { combineReducers } from "redux";
 import tokenReducer from "./token";
+import validatedReducer from "./validated";
 
 const allReducers = combineReducers({
-  avatar: avatarReducer,
   loginStatus: loginStatusReducer,
   user: userReducer,
   music: musicReducer,
-  token: tokenReducer
+  token: tokenReducer,
+  validated: validatedReducer
 });
 
 export default allReducers;

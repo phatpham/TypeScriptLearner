@@ -8,6 +8,7 @@ import UserInfo from "./components/UserInfo/UserInfo";
 import { Route, Switch } from "react-router-dom";
 import Game from "./components/Game/Game";
 import Home from "./components/Home/Home";
+import Unauthorised from "./components/Unauthorised/Unauthorised";
 import { loadUser } from "./actions";
 import { useHistory } from "react-router-dom";
 
@@ -15,16 +16,13 @@ function App() {
   const dispatch = useDispatch();
   const history = useHistory();
   const music = useSelector(state => state.music);
-  const avatar = useSelector(state => state.avatar);
+  const userObj = useSelector(state => state.user);
 
   useEffect(() => {
-    const loginStatus = localStorage.getItem("loginStatus");
-    const user = loginStatus ? localStorage.getItem("user") : "";
-
-    dispatch(loadUser(user));
-    if (loginStatus === "ON") {
-      history.push("/game");
-    }
+    // dispatch(loadUser(user));
+    // if (loginStatus === "ON") {
+    //   history.push("/game");
+    // }
   }, []);
 
   //ADD OTHER ROUTES HERE
@@ -36,7 +34,11 @@ function App() {
         loop
         src="/static/background.wav"
       ></audio>
-      <audio autoPlay id="character" src={"/static/" + avatar + ".wav"}></audio>
+      <audio
+        autoPlay
+        id="character"
+        src={"/static/" + userObj.avatar + ".wav"}
+      ></audio>
       <Switch>
         <Route
           path="/login"
@@ -57,6 +59,10 @@ function App() {
         <Route
           path="/reset"
           render={routerProps => <ResetPassword routerProps={routerProps} />}
+        ></Route>
+        <Route
+          path="/unauthorized"
+          render={routerProps => <Unauthorised routerProps={routerProps} />}
         ></Route>
         <Route
           path="/"

@@ -2,25 +2,31 @@ import React, { useState } from "react";
 import "../Login/Login.css";
 import Validator from "../ValidationSet/Validator";
 import { useHistory } from "react-router-dom";
-
-import { useDispatch } from "react-redux";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 function SignUp() {
   const history = useHistory();
+  const validated = useSelector(state => state.validated);
   const [showValidator, setShowValidator] = useState(false);
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
   const signupRequest = () => {
-    alert("Your name is " + user + ", Your password is " + pass + ".");
-
-    // axios
-    //   .get("OUR_SEVER")
-    //   .then(res => {
-    //     alert(res);
-    //   })
-    //   .catch("");
+    if (validated === true && user.length > 0) {
+      axios
+        .post("http://localhost:5000/user/signup", {
+          username: user,
+          password: pass
+        })
+        .then(res => {
+          alert("ok");
+          alert(res.data.message);
+          history.push("/login");
+        })
+        .catch();
+    }
   };
 
   return (

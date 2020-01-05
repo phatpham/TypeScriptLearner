@@ -13,6 +13,7 @@ import { changeMusicState } from "../../actions/";
 import { useHistory } from "react-router-dom";
 
 function Game() {
+  const userObj = useSelector(state => state.user);
   const history = useHistory();
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
   const dispatch = useDispatch();
@@ -129,6 +130,7 @@ function Game() {
           />
         </div>
         <div className="userinfodiv">
+          <p>{userObj.username}</p>
           <button
             onClick={() => {
               history.push("/user");
