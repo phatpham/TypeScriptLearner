@@ -1,6 +1,5 @@
 .gamepage {
   height: 100%;
-
   background-color: #242a3b;
   display: grid;
   grid-template-rows: 7% 38% 55%;
@@ -10,6 +9,8 @@
 
 .logo {
   align-self: center;
+  display: grid;
+  grid-template-columns: 45% 45%;
 }
 
 .logo h3 {
@@ -150,6 +151,20 @@
   border-radius: 7px;
 }
 
+.done {
+  background-color: green;
+  cursor: pointer;
+  border-color: lightgreen;
+  color: white;
+}
+
+.pending {
+  cursor: pointer;
+  background-color: orange;
+  color: black;
+  border-color: yellow;
+}
+
 .current {
   background-color: #242a3b;
   color: #1696c4;
@@ -182,4 +197,24 @@
 
 .btn-sound:hover {
   background-color: grey;
+}
+
+.leaderboard-btn {
+  height: 50%;
+  align-self: center;
+  width: 70%;
+  justify-self: right;
+  font-size: 18px;
+  border-radius: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  cursor: pointer;
+}
+
+.leaderboard-btn:hover {
+  background-color: #d7dade;
+}
+
+.leaderboard-btn:active {
+  background-color: black;
+  color: white;
 }
