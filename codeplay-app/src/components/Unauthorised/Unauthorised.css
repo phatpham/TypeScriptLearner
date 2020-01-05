@@ -1,0 +1,19 @@
+.unauthorised {
+    background-color: #242a3b;
+    display: grid;
+    grid-template-rows: 50% 20% 20%;
+  }
+  
+  .errorcode h1, .instruct p, .gologin p {
+    color: white;
+    text-align: center
+  }
+  
+  .errorcode h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 60px;
+  }
+  
+  .instruct p, .gologin p {
+    font-family: cursive;
+  }
