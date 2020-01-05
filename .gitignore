@@ -2,3 +2,7 @@
 node_modules/
 venv/
 build/
+
+#vscode stuff
+.DS_STORE
+*.pyc

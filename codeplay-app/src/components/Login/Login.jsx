@@ -7,14 +7,14 @@ import { login } from "../../actions";
 import axios from "axios";
 import { SemipolarLoading } from "react-loadingg";
 import { useHistory } from "react-router-dom";
-
+import { loadUser, loadToken } from "../../actions";
 function Login() {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const [pass, setPass] = useState("");
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status] = useState("Login Failed");
+  const [status, setStatus] = useState("");
   /**
    * TODO: Add actual URL for login
    */
@@ -30,14 +30,17 @@ function Login() {
 
     axios
       .post("http://localhost:5000/user/login", {
-        username: "user0",
-        password: "user0"
+        username: user,
+        password: pass
       })
       .then(res => {
-        alert(res.data.access_token);
+        dispatch(loadUser(res.data.user));
+        dispatch(loadToken(res.data.access_token));
+        setStatus(res.data.message);
+        history.push("/game");
       })
       .catch(res => {
-        alert(res);
+        setStatus("Network Error");
       });
   };
   return (

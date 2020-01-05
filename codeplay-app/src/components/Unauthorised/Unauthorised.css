@@ -1,0 +1,29 @@
+.unauthorised {
+  background-color: #242a3b;
+  display: grid;
+
+  height: 100%;
+  align-items: center;
+}
+
+.errorcode h1,
+.instruct p,
+.gologin p {
+  color: white;
+  text-align: center;
+}
+
+.errorcode h1 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 100px;
+}
+
+.instruct p,
+.gologin p {
+  font-family: cursive;
+  font-size: 20px;
+}
+
+a {
+  color: red;
+}

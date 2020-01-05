@@ -1,7 +1,10 @@
 import React, { Component, useEffect, useState } from "react";
 import "./Validator.css";
+import { updateValidated } from "../../actions";
+import { useDispatch } from "react-redux";
 
 function Validator(prop) {
+  const dispatch = useDispatch();
   const [lowerCase, setLowerCase] = useState(false);
   const [upperCase, setUpperCase] = useState(false);
   const [num, setNum] = useState(false);
@@ -9,13 +12,18 @@ function Validator(prop) {
   const [matching, setMatching] = useState(false);
   const password = prop.password;
   const confirmPass = prop.confirmPass;
+
   useEffect(() => {
     lowerCaseValidator();
     upperCaseValidator();
     numberValidator();
     lengthValidator();
     matchPassValidator();
-  }, [password, confirmPass]);
+    console.log(lowerCase && upperCase && num && matching && txtLength);
+    dispatch(
+      updateValidated(lowerCase && upperCase && num && matching && txtLength)
+    );
+  });
 
   const lowerCaseValidator = () => {
     var lowerCaseLetters = /[a-z]/g;

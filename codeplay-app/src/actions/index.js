@@ -12,13 +12,6 @@ export const changeAvatar = avatar => {
   };
 };
 
-export const loadProfile = profile => {
-  return {
-    type: "LOAD_PROFILE",
-    payload: profile
-  };
-};
-
 export const loadLoginStatus = status => {
   return {
     type: "LOAD_STATUS",
@@ -37,5 +30,26 @@ export const changeMusicState = state => {
   return {
     type: "CHANGE_MUSIC_STATE",
     payload: state
+  };
+};
+
+export const loadToken = token => {
+  return {
+    type: "LOAD_TOKEN",
+    payload: token
+  };
+};
+
+export const updateValidated = status => {
+  return {
+    type: "UPDATE_VALIDATION_STATUS",
+    payload: status
+  };
+};
+
+export const updateTimer = time => {
+  return {
+    type: "UPDATE_TIMER",
+    payload: time
   };
 };

@@ -8,18 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import "./UserInfo.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { changeAvatar } from "../../actions";
+import { loadUser } from "../../actions";
 
 function UserInfo() {
   const dispatch = useDispatch();
-
+  const userObj = useSelector(state => state.user);
   const history = useHistory();
-
-  const username = "xhao98";
-  // const password = "123123";
-  const date = "2013/01/01";
-  const avatar = useSelector(state => state.avatar);
-  const progress = 22;
 
   //TODO: ADD URL AND ACTION TO RESPOSNE
 
@@ -32,96 +26,110 @@ function UserInfo() {
       });
   };
 
+  const changeAvatar = avatarInput => {
+    const newUserState = {
+      username: userObj.username,
+      password: userObj.password,
+      progress: userObj.progress,
+      user_id: userObj.user_id,
+      avatar: avatarInput
+    };
+    dispatch(loadUser(newUserState));
+  };
+
   useEffect(() => {
-    dispatch(changeAvatar("goblin"));
+    changeAvatar("goblin");
   }, []);
 
   return (
     <div className="userinfopage">
-      {/* <audio autoPlay id="audio" src={avatar + ".wav"}></audio> */}
       <div className="avatarholder">
-        <img alt="#" src={avatar + ".png"} className="avatarimage"></img>
+        <img
+          alt
+          src={"/static/" + userObj.avatar + ".png"}
+          className="avatarimage"
+        ></img>
         <div className="avatars">
           <button
             onClick={() => {
-              dispatch(changeAvatar("goblin"));
+              changeAvatar("goblin");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="goblin1.png"></img>
+            <img alt="#" className="avicon" src="/static/goblin1.png"></img>
           </button>
           <audio src=""></audio>
           <button
             onClick={() => {
-              dispatch(changeAvatar("fairy"));
+              changeAvatar("fairy");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="fairy1.png"></img>
+            <img alt className="avicon" src="/static/fairy1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("wizard"));
+              changeAvatar("wizard");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="wizard1.png"></img>
+            <img alt="#" className="avicon" src="/static/wizard1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("witch"));
+              changeAvatar("witch");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="witch1.png"></img>
+            <img alt="#" className="avicon" src="/static/witch1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("ogre"));
+              changeAvatar("ogre");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="ogre1.png"></img>
+            <img alt="#" className="avicon" src="/static/ogre1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("troll"));
+              changeAvatar("troll");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="troll1.png"></img>
+            <img alt="#" className="avicon" src="/static/troll1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("assassin"));
+              changeAvatar("assassin");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="assassin1.png"></img>
+            <img alt="#" className="avicon" src="/static/assassin1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("archer"));
+              changeAvatar("archer");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="archer1.png"></img>
+            <img alt="#" className="avicon" src="/static/archer1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("elf"));
+              changeAvatar("elf");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="elf1.png"></img>
+            <img alt="#" className="avicon" src="/static/elf1.png"></img>
           </button>
           <button
             onClick={() => {
-              dispatch(changeAvatar("knight"));
+              changeAvatar("knight");
             }}
             className="avatarpic"
           >
-            <img alt="#" className="avicon" src="knight1.png"></img>
+            <img alt="#" className="avicon" src="/static/knight1.png"></img>
           </button>
         </div>
       </div>
@@ -129,7 +137,7 @@ function UserInfo() {
         <div className="usernameinfoholder">
           <h2 className="label">Username</h2>
           <h2 className="info" align="left">
-            {username}
+            {userObj.username}
           </h2>
         </div>
         <div className="passwordinfoholder">
@@ -150,13 +158,13 @@ function UserInfo() {
         <div className="usernameinfoholder">
           <h2 className="label">Joined</h2>
           <h2 className="info" align="left">
-            {date}
+            {"2/2/2"}
           </h2>
         </div>
         <div className="usernameinfoholder">
           <h2 className="label">Progress</h2>
           <h2 className="info" align="left">
-            {progress + "%"}
+            {userObj.progress + "%"}
           </h2>
         </div>
         <div className="infobuttons">

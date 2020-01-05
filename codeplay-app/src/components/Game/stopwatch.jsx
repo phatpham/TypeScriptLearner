@@ -1,10 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
-
+import { updateTimer } from "../../actions";
 import "./stopwatch.css";
+import { useSelector, useDispatch } from "react-redux";
 
 function Stopwatch(prop) {
+  const dispatch = useDispatch();
   const calculateTimeLeft = () => {
     const interval = +new Date() - +prop.start;
+
     let count = {};
 
     if (interval > 0) {
@@ -16,11 +19,13 @@ function Stopwatch(prop) {
 
     return count;
   };
-  const [counter, setCounter] = useState(calculateTimeLeft());
+
+  const counter = useSelector(state => state.timer);
 
   useEffect(() => {
     setTimeout(() => {
-      setCounter(calculateTimeLeft());
+      const temp = calculateTimeLeft();
+      dispatch(updateTimer(temp));
     }, 1000);
   });
 
