@@ -66,11 +66,15 @@ def register():
             }
         except:
             return custom_response(500, {'message':'User creation failed'})
+
+#login, allow cors for testing
 @cross_origin
 @userBP.route('/login', methods = ['POST'])
 def login():
     data = request.json
     current_user = User.get_user_by_username(data['username'])
+    schema = UserSchema
+    current_user_json = schema.dump(current_user)
     if not current_user:
         return {'message': 'User {} doesn\'t exist'.format(data['username'])}
         
@@ -79,6 +83,7 @@ def login():
         access_token = create_access_token(identity = data['username'])
         refresh_token = create_refresh_token(identity = data['username'])
         return {'message': 'Logged in as {}'.format(current_user.username),
+                'user': current_user_json,
                 'access_token': access_token,
                 'refresh_token': refresh_token
         }
