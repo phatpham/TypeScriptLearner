@@ -46,3 +46,10 @@ export const updateValidated = status => {
     payload: status
   };
 };
+
+export const updateTimer = time => {
+  return {
+    type: "UPDATE_TIMER",
+    payload: time
+  };
+};
