@@ -10,5 +10,5 @@ def custom_response(status_code, message):
     return Response(
         mimetype="application/json",
         response=json.dumps(message),
-        status=status_code
+        status=status_code,
     )

@@ -2,41 +2,51 @@ from marshmallow import Schema, fields
 
 from api.utils.database import db
 
+from sqlalchemy.dialects.mysql import TIME
 from passlib.hash import pbkdf2_sha256 as sha256
 
 
 #Load user
 class User(db.Model):
     """
-    User entity model, stored in 'user' table of database
+    User entity model, stored in 'users' table of database
     """
-    user_id = db.Column(db.Integer, unique=True, primary_key=True)
+    __tablename__ = 'users'
+    userID = db.Column(db.Integer, unique=True, primary_key=True)
     password = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    #createAt = db.Column(db.String(80), nullable=False)
+    timeStamp = db.Column(db.TIMESTAMP, nullable=False)
     progress = db.Column(db.Integer, nullable = False)
     avatar = db.Column(db.String(80))
 
     def __repr__(self):
         return '<User %r>' % self.username
 
-    def __init__(self, data):
-        self.user_id = data.get("user_id")
-        self.password = data.get("password")
-        self.username = data.get("username")
-
-    def update(self, username,password):
+    def __init__(self, username, password):
         self.password = password
-        try:
-            db.session.commit()
-        except Exception as e:
-            #log your exception in the way you want -> log to file, log as error with default logging, send by email. It's upon you
-            db.session.rollback()
-            db.session.flush() # for resetting non-commited .add()
+        self.username = username
+        self.progress = 0
+        
+    @staticmethod
+    def update(the_username,old_password, new_password):
+        user = User.query.filter_by(username=the_username).first()
+        if sha256.verify(old_password, user.password):
+            user.password = sha256.hash(new_password)
+            try:
+                db.session.commit()
+                return True
+            except Exception as e:
+                #log your exception in the way you want -> log to file, log as error with default logging, send by email. It's upon you
+                db.session.rollback()
+                db.session.flush() # for resetting non-commited .add()
+                return False
 
     def save_to_db(self):
         db.session.add(self)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            print(e)
 
     @staticmethod
     def get_user_by_username(name):
@@ -52,7 +62,7 @@ class User(db.Model):
         return sha256.verify(password, hash)
 
 class UserSchema(Schema):
-    user_id = fields.Int(required=True)
+    userID = fields.Int(required=True)
     username = fields.Str(required=True)
     password = fields.Str(required=True)
     #date = fields.DateTime()

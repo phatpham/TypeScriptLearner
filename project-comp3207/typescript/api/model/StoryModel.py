@@ -7,7 +7,7 @@ class Story(db.Model):
     """
     Story entity model, stored in 'Story' table of database
     """
-    story_id = db.Column(db.Integer, unique=True, primary_key=True)
+    storyID = db.Column(db.Integer, unique=True, primary_key=True)
     solution:db.Column(db.String(80), nullable=False)
     instruction:db.Column(db.String(80), nullable=False)
     options_1: db.Column(db.String(80))
@@ -33,7 +33,7 @@ class Story(db.Model):
     
 
 class StorySchema(Schema):
-    story_id = fields.Int(required=True)
+    storyID = fields.Int(required=True)
     solution = fields.Str(required=True)
     instruction = fields.Str(required=True)
     option_1 = fields.Str()
