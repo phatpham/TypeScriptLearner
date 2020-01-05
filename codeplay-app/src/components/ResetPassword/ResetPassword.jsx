@@ -3,7 +3,7 @@ import "./ResetPassword.css";
 
 import Validator from "../ValidationSet/Validator";
 import { useHistory } from "react-router-dom";
-
+import { loadUser } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
@@ -14,44 +14,53 @@ function ResetPassword() {
   const userPass = useSelector(state => state.userPass);
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-
-  // useEffect(() => {
-  //   axios
-  //     .post()
-  //     .then(res => {})
-  //     .catch(res => {
-  //       history.push("/unauthorized");
-  //     });
-  // }, []);
+  const validated = useSelector(state => state.validated);
+  const userObj = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   const resetRequest = () => {
-    alert("Your name is " + newPass + ", Your password is " + oldPass + ".");
-    if (isInputValid() === true) {
-      // axios
-      //   .get("OUR_SEVER")
-      //   .then(res => {
-      //     alert(res);
-      //   })
-      //   .catch("");
+    if (validated === true) {
+      axios
+        .put("http://localhost:5000/user/update", {
+          old_password: oldPass,
+          new_password: newPass,
+          username: userObj.username
+        })
+        .then(res => {
+          alert(res.data.message);
+
+          dispatch(
+            loadUser({
+              username: userObj.username,
+              password: newPass,
+              progress: userObj.progress,
+              user_id: userObj.user_id,
+              avatar: userObj.avatar
+            })
+          );
+        })
+        .catch(res => {
+          alert(res.message);
+        });
     }
   };
 
   /**
    * Validation on the new password
    */
-  const isInputValid = () => {
-    if (oldPass !== userPass) {
-      alert("Your Old Password is Incorrect");
-      return false;
-    } else if (newPass === oldPass) {
-      alert("Your new password is same as your old password!");
-      return false;
-    } else if (newPass !== confirmPass) {
-      alert("New Passwords do not match.");
-      return false;
-    }
-    return true;
-  };
+  // const isInputValid = () => {
+  //   if (oldPass !== userPass) {
+  //     alert("Your Old Password is Incorrect");
+  //     return false;
+  //   } else if (newPass === oldPass) {
+  //     alert("Your new password is same as your old password!");
+  //     return false;
+  //   } else if (newPass !== confirmPass) {
+  //     alert("New Passwords do not match.");
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   return (
     <div className="resetpassword">

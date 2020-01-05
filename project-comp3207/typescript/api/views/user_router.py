@@ -28,7 +28,7 @@ def user():
 
 
 #Change password
-#@jwt_required
+# @jwt_required
 @userBP.route('/update', methods = ['PUT'])
 def change_password():
     if request.method == 'PUT':
@@ -37,9 +37,9 @@ def change_password():
         new_password = request.json['new_password']
         value = User.update(the_username=username, old_password=old_password, new_password=new_password) 
         if value:
-            return {'message':'got it'}
+            return custom_response(200, {'message':'got it'})
         else:
-            return {'message':'failed'}
+            return custom_response(500, {'message':'failed'})
 
 @userBP.route('/signup', methods = ['POST'])
 def register():
@@ -76,13 +76,14 @@ def register():
 def login():
     data = request.json
     current_user = User.get_user_by_username(data['username'])
+    print()
     schema = UserSchema()
     current_user_json = schema.dump(current_user)
     if not current_user:
         return custom_response(500,{'message': 'User {} doesn\'t exist'.format(data['username'])})
         
-    #if User.verify_hash(data['password']) == current_user.password:
-    if data['password'] == current_user.password: 
+    if User.verify_hash(data['password'], current_user.password):
+         
         access_token = create_access_token(identity = data['username'])
         refresh_token = create_refresh_token(identity = data['username'])
         return {'message': 'Logged in as {}'.format(current_user.username),
