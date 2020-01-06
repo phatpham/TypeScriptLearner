@@ -6,6 +6,7 @@ import { combineReducers } from "redux";
 import tokenReducer from "./token";
 import validatedReducer from "./validated";
 import timerReducer from "./timer";
+import avatarReducer from "./avatar";
 
 const allReducers = combineReducers({
   loginStatus: loginStatusReducer,
@@ -13,7 +14,8 @@ const allReducers = combineReducers({
   music: musicReducer,
   token: tokenReducer,
   validated: validatedReducer,
-  timer: timerReducer
+  timer: timerReducer,
+  avatar: avatarReducer
 });
 
 export default allReducers;

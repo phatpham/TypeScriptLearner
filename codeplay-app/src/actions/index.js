@@ -53,3 +53,10 @@ export const updateTimer = time => {
     payload: time
   };
 };
+
+export const updateAvatar = avatar => {
+  return {
+    type: "UPDATE_AVATAR",
+    payload: avatar
+  };
+};

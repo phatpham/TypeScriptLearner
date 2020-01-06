@@ -17,6 +17,7 @@ function App() {
   const history = useHistory();
   const music = useSelector(state => state.music);
   const userObj = useSelector(state => state.user);
+  const avatar = useSelector(state => state.avatar);
 
   useEffect(() => {
     // dispatch(loadUser(user));
@@ -28,17 +29,13 @@ function App() {
   //ADD OTHER ROUTES HERE
   return (
     <React.Fragment>
-      {/* <audio
+      <audio
         id="background"
         autoPlay="true"
         loop
         src="/static/background.wav"
       ></audio>
-      <audio
-        autoPlay
-        id="character"
-        src={"/static/" + userObj.avatar + ".wav"}
-      ></audio> */}
+      <audio autoPlay id="character" src={"/static/" + avatar + ".wav"}></audio>
       <Switch>
         <Route
           path="/login"

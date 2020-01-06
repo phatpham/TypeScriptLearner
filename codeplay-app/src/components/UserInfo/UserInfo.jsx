@@ -8,21 +8,29 @@ import { useDispatch, useSelector } from "react-redux";
 import "./UserInfo.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { loadUser } from "../../actions";
+import { loadUser, updateAvatar } from "../../actions";
 
 function UserInfo() {
   const dispatch = useDispatch();
   const userObj = useSelector(state => state.user);
   const history = useHistory();
 
+  const avatar = useSelector(state => state.avatar);
+
   //TODO: ADD URL AND ACTION TO RESPOSNE
 
   const saveRequest = () => {
     axios
-      .post("/save")
-      .then(res => {})
+      .put("http://localhost:5000/user/update/avatar", {
+        username: userObj.username,
+        avatar: avatar
+      })
+      .then(res => {
+        changeAvatar(avatar);
+        alert(res.data.message);
+      })
       .catch(res => {
-        alert("Loading Failure");
+        alert(res.data);
       });
   };
 
@@ -40,6 +48,8 @@ function UserInfo() {
   useEffect(() => {
     if (userObj.avatar === null) {
       changeAvatar("goblin");
+    } else {
+      dispatch(updateAvatar(userObj.avatar));
     }
 
     // axios
@@ -55,13 +65,13 @@ function UserInfo() {
       <div className="avatarholder">
         <img
           alt
-          src={"/static/" + userObj.avatar + ".png"}
+          src={"/static/" + avatar + ".png"}
           className="avatarimage"
         ></img>
         <div className="avatars">
           <button
             onClick={() => {
-              changeAvatar("goblin");
+              dispatch(updateAvatar("goblin"));
             }}
             className="avatarpic"
           >
@@ -70,7 +80,7 @@ function UserInfo() {
           <audio src=""></audio>
           <button
             onClick={() => {
-              changeAvatar("fairy");
+              dispatch(updateAvatar("fairy"));
             }}
             className="avatarpic"
           >
@@ -78,7 +88,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("wizard");
+              dispatch(updateAvatar("wizard"));
             }}
             className="avatarpic"
           >
@@ -86,7 +96,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("witch");
+              dispatch(updateAvatar("witch"));
             }}
             className="avatarpic"
           >
@@ -94,7 +104,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("ogre");
+              dispatch(updateAvatar("ogre"));
             }}
             className="avatarpic"
           >
@@ -102,7 +112,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("troll");
+              dispatch(updateAvatar("troll"));
             }}
             className="avatarpic"
           >
@@ -110,7 +120,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("assassin");
+              dispatch(updateAvatar("assassin"));
             }}
             className="avatarpic"
           >
@@ -118,7 +128,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("archer");
+              dispatch(updateAvatar("archer"));
             }}
             className="avatarpic"
           >
@@ -126,7 +136,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("elf");
+              dispatch(updateAvatar("elf"));
             }}
             className="avatarpic"
           >
@@ -134,7 +144,7 @@ function UserInfo() {
           </button>
           <button
             onClick={() => {
-              changeAvatar("knight");
+              dispatch(updateAvatar("knight"));
             }}
             className="avatarpic"
           >
@@ -185,7 +195,14 @@ function UserInfo() {
           >
             Back
           </button>
-          <button className="infobutton userinfo-btn">Save</button>
+          <button
+            onClick={() => {
+              saveRequest();
+            }}
+            className="infobutton userinfo-btn"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>

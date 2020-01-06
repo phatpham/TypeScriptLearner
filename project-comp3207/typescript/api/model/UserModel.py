@@ -49,7 +49,7 @@ class User(db.Model):
     def update_avatar(username,avatar):
         user = User.query.filter_by(username=username).first()
         
-        print(sha256.verify(old_password, user.password))
+        
         if user:
             user.avatar = avatar
             try:

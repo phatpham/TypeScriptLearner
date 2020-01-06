@@ -1,6 +1,6 @@
 const userReducer = (
   state = {
-    avatar: "goblin",
+    avatar: "",
     password: "",
     progress: "",
     user_id: "",
