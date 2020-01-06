@@ -5,12 +5,16 @@ from flask import Blueprint,request, render_template
 
 from api.model.StoryModel import Story, StorySchema
 from api.model.LeaderboardModel import Leaderboard, LeaderboardSchema
+from api.model.UserModel import User, UserSchema
+
+from shutil import copyfile
+import os
+import re
 
 interp = Blueprint('interp', __name__, url_prefix='/game')
 
-@jwt_required
-@interp.route('/execute', methods = ["POST", "GET"])
-def execute():
+@interp.route('/execute/<int:file_id>', methods = ["POST", "GET"])
+def execute(file_id):
     '''
     Execute code
     '''
@@ -20,28 +24,109 @@ def execute():
         @return render page with output string
         '''
         #get input code and time submitted
-        input_code = request.form['inputCode']
-        time = request.form['time']
+        input_code = request.json['input_code']
+        time = request.json['time']
+        username = request.json['time']
 
         #to run this, install necessary node package in typescript/node
-        write_to_tmp_file(input_code)
+        write_to_tmp_file(input_code, file_id)
 
-        #if solution is correct, write to leaderboard 
-        # <--- Relate to many unimplemented task, lot of work
 
-        #To-be-change
-        return render_template('interpret.html', output=js)
-    else:
-        return render_template('interpret.html')
+        #edge case for the first problem
+        if file_id == 1:
+            print(input_code)
+            if input_code == "console.log('Hello World')":
 
-def write_to_tmp_file(input_code):
+                save(file_id, username)
+                remove_tmp(file_id) 
+
+                return {
+                    'message':'Hello World',
+                    'success':True
+                }
+            else:
+                return {
+                    'success':False
+                }
+        else:
+
+            
+            try:
+                js = subprocess.check_output(
+                'npx --no-install tsc problems/tmp_{}.ts'.format(file_id),
+                shell=True,
+                stderr=subprocess.STDOUT,
+                cwd="typescript/node"
+            )
+            except subprocess.CalledProcessError as cpe:
+                return {
+                    'message':cpe.output,
+                    'success': False
+                }
+
+            try:
+                a = subprocess.check_output(
+                    'node problems/tmp_{}.js'.format(file_id), 
+                    shell=True, 
+                    stderr=subprocess.STDOUT, 
+                    cwd="typescript/node"
+                ) 
+
+                print(clean(a))
+                
+                if clean(a) == 'true':
+                    #if solution is correct, write to leaderboard
+                    save(file_id, username)
+                    remove_tmp(file_id)
+                    return {
+                        'message':'All test passed',
+                        'success':True    
+                    }
+                else:
+                    remove_tmp(file_id)
+                    return {
+                        'message':'Make sure to follow all the instructions',
+                        'success':False
+                    }
+            except subprocess.CalledProcessError as cpe:
+                return {
+                    'message':cpe.output,
+                    'success': False
+                }
+
+def write_to_tmp_file(input_code, file_id):
     """
     Put input code into a temporary file
     """
-    #put code in temp file
-    filename = "typescript/node/input.ts"
+    filename = "typescript/node/problems/{}.ts".format(file_id)
+    tmp_filename = "typescript/node/problems/tmp_{}.ts".format(file_id) 
+    copyfile(filename, tmp_filename)
+    with open(tmp_filename, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(input_code.rstrip('\r\n') + '\n' + content)
 
-    inputTS = open(filename, "w")
-    inputTS.write(input_code)
-    inputTS.close()
 
+def save(file_id,username):
+    """
+    Save progress and update leaderboard
+    """
+    Leaderboard.update_leaderboard(username, time)
+    if file_id == user.progress:
+        User.update_progress(username)
+
+def remove_tmp(file_id):
+    '''
+    Remove tmp_file after running the code
+    '''
+    filename = "typescript/node/problems/tmp_{}.ts".format(file_id)
+    filename2 = "typescript/node/problems/tmp_{}.js".format(file_id) 
+
+    os.remove(filename)
+    os.remove(filename2)
+
+def clean(byte):
+    '''
+    Convert byte to string, remove newline character
+    '''
+    return re.sub("\n","",byte.decode("utf-8").strip()) 

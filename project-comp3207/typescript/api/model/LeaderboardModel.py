@@ -21,6 +21,21 @@ class Leaderboard(db.Model):
         self.username = data.get("username")
         self.time = data.get("time")
 
+    @staticmethod 
+    def update_leaderboard(t_username,t_time, storyID):
+        new_entry = Leaderboard(
+            username = t_username,
+            time = t_time
+        )
+        try:
+            db.session.add(new_entry)
+            db.session.commit()
+            return True
+        except Exception as e:
+            #log your exception in the way you want -> log to file, log as error with default logging, send by email. It's upon you
+            db.session.rollback()
+            db.session.flush() # for resetting non-commited .add()
+            return False 
 
     @staticmethod
     def return_top5_by_story_id(id):
