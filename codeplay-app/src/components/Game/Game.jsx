@@ -42,7 +42,7 @@ function Game() {
     axios
       .post("http://localhost:5000/leaderboard/" + unit)
       .then(res => {
-        alert(res.data.list);
+        history.push;
       })
       .catch(res => {
         alert("Failed Loading LeaderBoard");

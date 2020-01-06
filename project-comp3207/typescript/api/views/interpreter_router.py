@@ -26,11 +26,11 @@ def execute(file_id):
         #get input code and time submitted
         input_code = request.json['input_code']
         time = request.json['time']
-        username = request.json['time']
-
+        username = request.json['username']
+        print(username)
         #to run this, install necessary node package in typescript/node
         write_to_tmp_file(input_code, file_id)
-
+        print(4)
 
         #edge case for the first problem
         if file_id == 1:
