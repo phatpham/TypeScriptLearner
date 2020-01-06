@@ -6,7 +6,7 @@ from flask_jwt_extended import jwt_required
 storyBP = Blueprint('storyBP', __name__, url_prefix='/story')
 
 #not sure about the route
-# @jwt_required
+
 @storyBP.route('/load/<int:story_id>', methods = ['POST'])
 def load(story_id):
     if request.method == "POST":

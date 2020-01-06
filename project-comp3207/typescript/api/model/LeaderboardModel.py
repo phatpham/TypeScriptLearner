@@ -15,17 +15,17 @@ class Leaderboard(db.Model):
     username = db.Column(db.String)
     time = db.Column(db.Integer)
 
-    def __init__(self, data):
-        self.id = data.get("leaderboard_id")
-        self.storyID = data.get("story_id")
-        self.username = data.get("username")
-        self.time = data.get("time")
+    def __init__(self, username, time, storyID):
+        self.storyID = storyID
+        self.username = username
+        self.time = time
 
     @staticmethod 
-    def update_leaderboard(t_username,t_time, storyID):
+    def update_leaderboard(t_username,t_time, t_storyID):
         new_entry = Leaderboard(
             username = t_username,
-            time = t_time
+            time = t_time,
+            storyID = t_storyID
         )
         try:
             db.session.add(new_entry)

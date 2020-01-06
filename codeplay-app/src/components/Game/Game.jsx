@@ -10,7 +10,7 @@ import axios from "axios";
 import DragDrop from "./DragDrop";
 import Leaderboard from "./Leaderboard";
 import Stopwatch from "./stopwatch";
-import { changeMusicState, updateTimer } from "../../actions/";
+import { changeMusicState, updateTimer, loadUser } from "../../actions/";
 import { useHistory } from "react-router-dom";
 
 function Game() {
@@ -19,6 +19,8 @@ function Game() {
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
   const dispatch = useDispatch();
   const [code, setCode] = useState("");
+  const timer = useSelector(state => state.timer);
+  const [start, setStart] = useState(new Date());
 
   const [template, setTemplate] = useState(
     'console.log("Hello world");\nconsole.log(3+2);'
@@ -27,33 +29,37 @@ function Game() {
   const [chapters, setChapters] = useState([]);
 
   const [unit, setUnit] = useState(1);
-  const user = useSelector(state => state.user);
+
   const [story, setStory] = useState("One day everybody died.");
   const [instructions, setInstructions] = useState([
     "Write some stuff",
     "Change some stuff"
   ]);
-  const [output, setOutput] = useState("Hello world");
+  const [output, setOutput] = useState("Hello Knight");
   const [solution, setSolution] = useState("");
   const music = useSelector(state => state.music);
   const [redirect, setRedirect] = useState("false");
   const [options, setOptions] = useState({});
+  const [leaders, setLeaders] = useState([]);
 
   function requestLeaderBoard(unit) {
     axios
       .post("http://localhost:5000/leaderboard/" + unit)
       .then(res => {
-        history.push;
+        alert(res.data.list);
+        setLeaders(res.data.list);
+
+        var m = document.getElementById("modal");
+        m.style.display = "block";
       })
       .catch(res => {
         alert("Failed Loading LeaderBoard");
       });
   }
 
-  
-
   const loadChapter = chapterID => {
-    if (chapterID <= user.progress + 1) {
+    setStart(new Date());
+    if (chapterID <= userObj.progress + 1) {
       axios.post("http://localhost:5000/story/load/" + chapterID).then(res => {
         setInstructions(res.data.instruction);
         setStory(res.data.storyDescription);
@@ -100,8 +106,30 @@ function Game() {
   }, []);
 
   // send request to server to run code.
-  function runCode() {
-    axios.post("http://localhost/game/execute/" + unit).then(res => {});
+  function runCode(code) {
+    axios
+      .post("http://localhost:5000/game/execute/" + unit, {
+        username: userObj.username,
+        time: timer,
+        input_code: code
+      })
+      .then(res => {
+        alert(res.data.message);
+        setOutput(res.data.message);
+        dispatch(
+          loadUser({
+            username: userObj.username,
+            password: userObj.password,
+            progress: res.data.progress,
+            user_id: userObj.user_id,
+            avatar: userObj.avatar
+          })
+        );
+        console.log(userObj);
+      })
+      .catch(res => {
+        alert("Not Working");
+      });
   }
 
   const logoff = () => {
@@ -119,7 +147,8 @@ function Game() {
 
   return (
     <div className="gamepage">
-    <Leaderboard level="Type inference" leaders={[{username:"lol",time:54}]}/>
+      {console.log(leaders)}
+      <Leaderboard level="Leaderboard For Current Level" leaders={leaders} />
       <div className="chapters">
         {chapters.forEach(c => {
           chaptArray.push(
@@ -130,9 +159,9 @@ function Game() {
               className={
                 unit === c.id
                   ? "chapterholder current"
-                  : user.progress + 1 > c.id
+                  : userObj.progress + 1 > c.id
                   ? "chapterholder done"
-                  : user.progress + 1 === c.id
+                  : userObj.progress + 1 === c.id
                   ? "chapterholder pending"
                   : "chapterholder"
               }
@@ -234,7 +263,7 @@ function Game() {
         <div className="codebuttons">
           <button
             onClick={() => {
-              setUnit((unit + 1) % 14);
+              runCode(code);
             }}
             className="codebutton btn white-btn"
           >
@@ -248,7 +277,7 @@ function Game() {
           >
             Restart
           </button>
-          <Stopwatch start={new Date()} />
+          <Stopwatch start={start} />
         </div>
       </div>
       <div className="output">

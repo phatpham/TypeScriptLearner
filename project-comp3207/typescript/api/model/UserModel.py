@@ -52,7 +52,7 @@ class User(db.Model):
 
     @staticmethod
     def update_progress(username):
-        user = User.query.filter_by(username=the_username).first()
+        user = User.query.filter_by(username=username).first()
         user.progress = user.progress + 1
         try:
             db.session.commit()

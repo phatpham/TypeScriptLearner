@@ -36,13 +36,14 @@ def execute(file_id):
         if file_id == 1:
             print(input_code)
             if input_code == "console.log('Hello World')":
-
-                save(file_id, username)
-                remove_tmp(file_id) 
+                user = User.get_user_by_username(username)
+                
+                save(file_id, username, time)
 
                 return {
                     'message':'Hello World',
-                    'success':True
+                    'success':True,
+                    'progress':user.progress
                 }
             else:
                 return {
@@ -60,7 +61,7 @@ def execute(file_id):
             )
             except subprocess.CalledProcessError as cpe:
                 return {
-                    'message':cpe.output,
+                    'message': clean(cpe.output),
                     'success': False
                 }
 
@@ -76,7 +77,7 @@ def execute(file_id):
                 
                 if clean(a) == 'true':
                     #if solution is correct, write to leaderboard
-                    save(file_id, username)
+                    save(file_id, username, time)
                     remove_tmp(file_id)
                     return {
                         'message':'All test passed',
@@ -90,7 +91,7 @@ def execute(file_id):
                     }
             except subprocess.CalledProcessError as cpe:
                 return {
-                    'message':cpe.output,
+                    'message':clean(cpe.output),
                     'success': False
                 }
 
@@ -107,12 +108,13 @@ def write_to_tmp_file(input_code, file_id):
         f.write(input_code.rstrip('\r\n') + '\n' + content)
 
 
-def save(file_id,username):
+def save(file_id,username, time):
     """
     Save progress and update leaderboard
     """
-    Leaderboard.update_leaderboard(username, time)
-    if file_id == user.progress:
+    Leaderboard.update_leaderboard(username, time, file_id)
+    user = User.get_user_by_username(username)
+    if file_id == user.progress+1:
         User.update_progress(username)
 
 def remove_tmp(file_id):
