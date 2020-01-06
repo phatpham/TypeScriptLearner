@@ -8,6 +8,7 @@ storyBP = Blueprint('storyBP', __name__, url_prefix='/story')
 #not sure about the route
 
 @storyBP.route('/load/<int:story_id>', methods = ['POST'])
+#@jwt_required
 def load(story_id):
     if request.method == "POST":
         story = Story.get_story_by_id(story_id)
@@ -16,6 +17,7 @@ def load(story_id):
         return result
 
 @storyBP.route('/load', methods = ['POST'])
+#@jwt_required
 def loadAll():
     if request.method == "POST":
         unitName = Story.get_story()

@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager
 from http import HTTPStatus
 
 from .response import custom_response
-from api.views import interpreter_router, user_router, upload_router, story_router, leaderboard_router
+from api.views import interpreter_router, user_router, story_router, leaderboard_router
 from api.model.RevokedToken import RevokedToken, RevokedTokenSchema
 
 from .database import db
@@ -27,7 +27,6 @@ def create_app(config):
     #Register views
     app.register_blueprint(interpreter_router.interp) #BUG
     app.register_blueprint(user_router.userBP)
-    app.register_blueprint(upload_router.uploadBP)
     app.register_blueprint(leaderboard_router.leaderBP)
     app.register_blueprint(story_router.storyBP)
 
@@ -61,10 +60,10 @@ def create_app(config):
         return render_template("index.html")
 
 
-    # @jwt.token_in_blacklist_loader
-    # def check_if_token_in_blacklist(decrypted_token):
-    #     jti = decrypted_token['jti']
-    #     return RevokedToken.is_jti_blacklisted(jti)
+    @jwt.token_in_blacklist_loader
+    def check_if_token_in_blacklist(decrypted_token):
+        jti = decrypted_token['jti']
+        return RevokedToken.is_jti_blacklisted(jti)
     
     # why do I need this after refactoring?
     db.init_app(app)

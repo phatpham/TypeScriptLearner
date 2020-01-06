@@ -110,7 +110,7 @@ function Game() {
     axios
       .post("http://localhost:5000/game/execute/" + unit, {
         username: userObj.username,
-        time: timer,
+        time: timer.minutes * 60 + timer.seconds,
         input_code: code
       })
       .then(res => {
