@@ -15,7 +15,7 @@ class User(db.Model):
     userID = db.Column(db.Integer, unique=True, primary_key=True)
     password = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    timeStamp = db.Column(db.TIMESTAMP, nullable=False)
+    timestamp = db.Column(db.TIMESTAMP, nullable=False)
     progress = db.Column(db.Integer, nullable = False)
     avatar = db.Column(db.String(80))
 
@@ -87,7 +87,7 @@ class UserSchema(Schema):
     userID = fields.Int(required=True)
     username = fields.Str(required=True)
     password = fields.Str(required=True)
-    #date = fields.DateTime()
+    timestamp = fields.DateTime()
     progress = fields.Int(required=True)
     avatar = fields.Str()
 

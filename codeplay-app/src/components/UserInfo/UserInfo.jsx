@@ -177,7 +177,7 @@ function UserInfo() {
         <div className="usernameinfoholder">
           <h2 className="label">Joined</h2>
           <h2 className="info" align="left">
-            {"2/2/2"}
+            {userObj.timestamp.toString().substring(0, 10)}
           </h2>
         </div>
         <div className="usernameinfoholder">
