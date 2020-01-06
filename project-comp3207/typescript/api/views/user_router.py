@@ -28,12 +28,14 @@ def user():
 
 
 #Change password
-# @jwt_required
+
 
 @userBP.route('/update/avatar', methods = ['PUT'])
+@jwt_required
 def change_avatar():
     if request.method == 'PUT':
-        username = request.json['username']
+        username = get_jwt_identity()
+        print(username)
         avatar = request.json['avatar']
         value = User.update_avatar(avatar=avatar,username=username); 
         if value:
@@ -73,10 +75,10 @@ def register():
         try:
             new_user.save_to_db()
             access_token = create_access_token(identity = data['username'])
-            refresh_token = create_refresh_token(identity = data['username'])
+        
             return {'message': 'User {} created'.format( data['username']),
                     'access_token': access_token,
-                    'refresh_token': refresh_token
+                    
             }
         except:
             return custom_response(500, {'message':'User creation failed'})
@@ -96,17 +98,16 @@ def login():
     if User.verify_hash(data['password'], current_user.password):
          
         access_token = create_access_token(identity = data['username'])
-        refresh_token = create_refresh_token(identity = data['username'])
         return {'message': 'Logged in as {}'.format(current_user.username),
                 'user': current_user_json,
                 'access_token': access_token,
-                'refresh_token': refresh_token
+                
         }
     else:
         return custom_response(500, {"message":"Wrong password"})
 
 #log out access token
-#@jwt_required
+
 @userBP.route('/logout')
 def logout():
     jti = get_raw_jwt()['jti']

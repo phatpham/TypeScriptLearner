@@ -61,10 +61,10 @@ def create_app(config):
         return render_template("index.html")
 
 
-    @jwt.token_in_blacklist_loader
-    def check_if_token_in_blacklist(decrypted_token):
-        jti = decrypted_token['jti']
-        return RevokedToken.is_jti_blacklisted(jti)
+    # @jwt.token_in_blacklist_loader
+    # def check_if_token_in_blacklist(decrypted_token):
+    #     jti = decrypted_token['jti']
+    #     return RevokedToken.is_jti_blacklisted(jti)
     
     # why do I need this after refactoring?
     db.init_app(app)

@@ -18,7 +18,7 @@ class ProductionConfig(Config):
     ADMIN_AUTH_PASSWORD = generate_hash(os.getenv('ADMIN_AUTH_PASSWORD', 'John Wick'))
     UPLOAD_FOLDER = '/path/to/the/uploads'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-    JWT_BLACKLIST_ENABLED = True
+    JWT_BLACKLIST_ENABLED = False
     JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']
 
 class DevelopmentConfig(Config):
