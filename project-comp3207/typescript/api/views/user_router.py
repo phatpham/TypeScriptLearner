@@ -67,7 +67,6 @@ def register():
         #create new user
         new_user = User(
             username = data['username'],
-            #need revision
             password = User.generate_hash(data['password'])
         )
         #Save user to database and send back tokens
@@ -107,14 +106,13 @@ def login():
         return custom_response(500, {"message":"Wrong password"})
 
 #log out access token
+#@jwt_required
 @userBP.route('/logout')
 def logout():
-    @jwt_required
-    def post(self):
-        jti = get_raw_jwt()['jti']
-        try:
-            revoked_token = RevokedToken(jti = jti)
-            revoked_token.add()
-            return {'message': 'Access token has been revoked'}
-        except:
-            return custom_response(500, {'message': 'Something went wrong'})
+    jti = get_raw_jwt()['jti']
+    try:
+        revoked_token = RevokedToken(jti = jti)
+        revoked_token.add()
+        return {'message': 'Access token has been revoked'}
+    except:
+        return custom_response(500, {'message': 'Something went wrong'})

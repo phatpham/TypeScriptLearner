@@ -26,7 +26,14 @@ class User(db.Model):
         self.password = password
         self.username = username
         self.progress = 0
-        
+
+    def save_to_db(self):
+        db.session.add(self)
+        try:
+            db.session.commit()
+        except Exception as e:
+            print(e)
+
     @staticmethod
     def update(the_username,old_password, new_password):
         user = User.query.filter_by(username=the_username).first()
@@ -43,12 +50,22 @@ class User(db.Model):
                 db.session.flush() # for resetting non-commited .add()
                 return False
 
-
+    @staticmethod
+    def update_progress(username):
+        user = User.query.filter_by(username=the_username).first()
+        user.progress = user.progress + 1
+        try:
+            db.session.commit()
+            return True
+        except Exception as e:
+            #log your exception in the way you want -> log to file, log as error with default logging, send by email. It's upon you
+            db.session.rollback()
+            db.session.flush() # for resetting non-commited .add()
+            return False
 
     @staticmethod
     def update_avatar(username,avatar):
         user = User.query.filter_by(username=username).first()
-        
         
         if user:
             user.avatar = avatar
@@ -60,14 +77,7 @@ class User(db.Model):
                 db.session.rollback()
                 db.session.flush() # for resetting non-commited .add()
                 return False
-
-    def save_to_db(self):
-        db.session.add(self)
-        try:
-            db.session.commit()
-        except Exception as e:
-            print(e)
-
+                
     @staticmethod
     def get_user_by_username(name):
         print("username "+name)
