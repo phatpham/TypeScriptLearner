@@ -10,14 +10,14 @@ class Leaderboard(db.Model):
     """
     Leaderboard entity model, stored in 'Leaderboard' table of database
     """
-    leaderboard_id = db.Column(db.Integer, unique=True, primary_key=True)
-    story_id = db.Column(db.Integer) #should be forgein key
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    storyID = db.Column(db.Integer) #should be forgein key
     username = db.Column(db.String)
     time = db.Column(db.Integer)
 
     def __init__(self, data):
-        self.leaderboard_id = data.get("leaderboard_id")
-        self.story_id = data.get("story_id")
+        self.id = data.get("leaderboard_id")
+        self.storyID = data.get("story_id")
         self.username = data.get("username")
         self.time = data.get("time")
 
@@ -39,8 +39,12 @@ class Leaderboard(db.Model):
 
     @staticmethod
     def return_top5_by_story_id(id):
-        top_5 = Leaderboard.query.filter_by(story_id=id).order_by(Leaderboard.time.amount.desc()).limit(5).all()
-        return top_5
+        top_5 = Leaderboard.query.filter_by(storyID=id).order_by(Leaderboard.time.asc()).limit(5).all()
+        recordObj = []
+        for record in top_5:
+            recordObj.append({"name":record.username,"time":record.time})
+        print(recordObj)
+        return recordObj
     
 
 class LeaderboardSchema(Schema):

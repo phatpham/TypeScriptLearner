@@ -17,6 +17,7 @@ function Game() {
   const history = useHistory();
   const [answerMode, setAnswerMode] = useState("EDITOR"); // EDITOR/DRAG
   const dispatch = useDispatch();
+  const [code, setCode] = useState("");
 
   const [template, setTemplate] = useState(
     'console.log("Hello world");\nconsole.log(3+2);'
@@ -37,7 +38,16 @@ function Game() {
   const [redirect, setRedirect] = useState("false");
   const [options, setOptions] = useState({});
 
-  //
+  function requestLeaderBoard(unit) {
+    axios
+      .post("http://localhost:5000/leaderboard/" + unit)
+      .then(res => {
+        alert(res.data.list);
+      })
+      .catch(res => {
+        alert("Failed Loading LeaderBoard");
+      });
+  }
 
   const loadChapter = chapterID => {
     if (chapterID <= user.progress + 1) {
@@ -57,12 +67,19 @@ function Game() {
     }
   };
 
+  function restart() {
+    setCode("");
+  }
+
+  function onchange(value) {
+    setCode(value);
+  }
   useEffect(() => {
     axios
       .post("http://localhost:5000/story/load")
       .then(res => {
         setChapters(res.data.message);
-        axios.post("http://localhost:5000/story/load/4").then(res => {
+        axios.post("http://localhost:5000/story/load/" + unit).then(res => {
           setInstructions(res.data.instruction);
           setStory(res.data.storyDescription);
           setOptions({
@@ -80,7 +97,9 @@ function Game() {
   }, []);
 
   // send request to server to run code.
-  function runCode() {}
+  function runCode() {
+    axios.post("http://localhost/game/execute/" + unit).then(res => {});
+  }
 
   const logoff = () => {
     localStorage.removeItem("access_token");
@@ -122,7 +141,14 @@ function Game() {
       </div>
       <div className="logo">
         <h3>Code & Play</h3>
-        <button className="leaderboard-btn btn white-btn">Leaderboard</button>
+        <button
+          onClick={() => {
+            requestLeaderBoard(unit);
+          }}
+          className="leaderboard-btn btn white-btn"
+        >
+          Leaderboard
+        </button>
       </div>
       <div className="userinfotag">
         <div className="volume">
@@ -187,6 +213,8 @@ function Game() {
          */}
         {answerMode === "EDITOR" ? (
           <AceEditor
+            value={code}
+            onChange={onchange}
             mode="typescript"
             theme="monokai"
             name="code"
@@ -208,7 +236,12 @@ function Game() {
           >
             Run
           </button>
-          <button onClick={() => {}} className="codebutton btn white-btn">
+          <button
+            onClick={() => {
+              restart();
+            }}
+            className="codebutton btn white-btn"
+          >
             Restart
           </button>
           <Stopwatch start={new Date()} />
