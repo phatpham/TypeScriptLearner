@@ -12,7 +12,7 @@ def generate_hash(password):
         return sha256.hash(password)
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:1@35.242.191.40/typescript"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:12345@146.148.114.174/users"
     JWT_SECRET_KEY = "random string that is very secret" # to be set up on instance
     JWT_BLACKLIST_ENABLED = False
     JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']

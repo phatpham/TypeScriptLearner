@@ -31,11 +31,10 @@ def user():
 
 
 @userBP.route('/update/avatar', methods = ['PUT'])
-@jwt_required
+#jwt_required
 def change_avatar():
     if request.method == 'PUT':
-        username = get_jwt_identity()
-        print(username)
+        username = request.json['username']
         avatar = request.json['avatar']
         value = User.update_avatar(avatar=avatar,username=username); 
         if value:
@@ -44,7 +43,7 @@ def change_avatar():
             return custom_response(500, {'message':'failed'})
 
 @userBP.route('/update', methods = ['PUT'])
-@jwt_required
+#jwt_required
 def change_password():
     if request.method == 'PUT':
         username = request.json['username']
@@ -110,7 +109,7 @@ def login():
 #log out access token
 
 @userBP.route('/logout', methods = ['POST'])
-@jwt_required
+#jwt_required
 def logout():
     jti = get_raw_jwt()['jti']
     try:
