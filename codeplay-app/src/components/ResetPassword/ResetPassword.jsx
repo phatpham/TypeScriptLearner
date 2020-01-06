@@ -29,15 +29,7 @@ function ResetPassword() {
         .then(res => {
           alert(res.data.message);
 
-          dispatch(
-            loadUser({
-              username: userObj.username,
-              password: newPass,
-              progress: userObj.progress,
-              user_id: userObj.user_id,
-              avatar: userObj.avatar
-            })
-          );
+          history.push("/user");
         })
         .catch(res => {
           alert(res.message);

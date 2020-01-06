@@ -30,7 +30,7 @@ function UserInfo() {
         alert(res.data.message);
       })
       .catch(res => {
-        alert(res.data);
+        alert(res.message);
       });
   };
 
@@ -70,6 +70,7 @@ function UserInfo() {
         ></img>
         <div className="avatars">
           <button
+            type="button"
             onClick={() => {
               dispatch(updateAvatar("goblin"));
             }}
@@ -175,16 +176,14 @@ function UserInfo() {
           </button>
         </div>
         <div className="usernameinfoholder">
-          <h2 className="label">Joined</h2>
-          <h2 className="info" align="left">
-            {userObj.timestamp.toString().substring(0, 10)}
-          </h2>
-        </div>
-        <div className="usernameinfoholder">
           <h2 className="label">Progress</h2>
           <h2 className="info" align="left">
             {Math.round((userObj.progress / 9) * 100) + "%"}
           </h2>
+        </div>
+        <div className="usernameinfoholder">
+          <h2 className="label"></h2>
+          <h2 className="info" align="left"></h2>
         </div>
         <div className="usernameinfoholder">
           <button

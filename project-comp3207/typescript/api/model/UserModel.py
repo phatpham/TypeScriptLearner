@@ -48,8 +48,6 @@ class User(db.Model):
     @staticmethod
     def update_avatar(username,avatar):
         user = User.query.filter_by(username=username).first()
-        
-        
         if user:
             user.avatar = avatar
             try:
