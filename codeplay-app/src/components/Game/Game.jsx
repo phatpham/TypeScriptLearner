@@ -8,6 +8,7 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "./Game.css";
 import axios from "axios";
 import DragDrop from "./DragDrop";
+import Leaderboard from "./Leaderboard";
 import Stopwatch from "./stopwatch";
 import { changeMusicState, updateTimer } from "../../actions/";
 import { useHistory } from "react-router-dom";
@@ -48,6 +49,8 @@ function Game() {
         alert("Failed Loading LeaderBoard");
       });
   }
+
+  
 
   const loadChapter = chapterID => {
     if (chapterID <= user.progress + 1) {
@@ -116,6 +119,7 @@ function Game() {
 
   return (
     <div className="gamepage">
+    <Leaderboard level="Type inference" leaders={[{username:"lol",time:54}]}/>
       <div className="chapters">
         {chapters.forEach(c => {
           chaptArray.push(

@@ -1,25 +1,30 @@
 .leaderboard {
     background-color: #242a3b;
     display: grid;
-    height: 100%;
+    display: none;
+    position: fixed;
+    height: 500px;
+    width: 700px;
+    z-index: 10;
     row-gap: 5px;
     overflow: scroll;
+    margin-left: 250px;
+    margin-top: 50px;
+    border: 3px dashed white;
+    overflow: scroll;
+    grid-template-rows: 20% 75%;
   }
   
   .leadertop {
     display: grid;
-    grid-template-columns: 30% 70%;
-  }
-  
-  .leaderlevel {
-    justify-self: left;
+    grid-template-rows: 20% 75%;
   }
   
   .leaderlevel h2 {
     color: white;
     font-family: 'Courier New', Courier, monospace;
-    text-align: left;
-    font-size: 17px;
+    margin-left: 10px;
+    font-size: 30px;
   }
   
   .back {
@@ -30,6 +35,7 @@
     justify-self: left;
     align-self: center;
     margin-left: 10px;
+    margin-top: 5px;
     font-size: 15px;
     font-family: 'Courier New', Courier, monospace;
     border-radius: 25px;
@@ -58,6 +64,11 @@
     margin-right: 10px;
     padding: 5px;
     font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+  }
+
+  .leaderdiv p {
+    margin: 10px;
   }
   
 
