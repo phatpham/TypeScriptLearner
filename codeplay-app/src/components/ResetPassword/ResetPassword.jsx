@@ -21,7 +21,7 @@ function ResetPassword() {
   const resetRequest = () => {
     if (validated === true) {
       axios
-        .put("http://localhost:5000/user/update", {
+        .put("/user/update", {
           old_password: oldPass,
           new_password: newPass,
           username: userObj.username

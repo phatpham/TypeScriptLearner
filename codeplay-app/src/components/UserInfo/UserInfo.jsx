@@ -21,7 +21,7 @@ function UserInfo() {
 
   const saveRequest = () => {
     axios
-      .put("http://localhost:5000/user/update/avatar", {
+      .put("/user/update/avatar", {
         username: userObj.username,
         avatar: avatar
       })

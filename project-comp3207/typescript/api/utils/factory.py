@@ -6,8 +6,8 @@ from flask_jwt_extended import JWTManager
 from http import HTTPStatus
 
 from .response import custom_response
-from api.views import interpreter_router, user_router, story_router, leaderboard_router
-from api.model.RevokedToken import RevokedToken, RevokedTokenSchema
+from typescript.api.views import interpreter_router, user_router, story_router, leaderboard_router
+from typescript.api.model.RevokedToken import RevokedToken, RevokedTokenSchema
 
 from .database import db
 from flask_cors import CORS

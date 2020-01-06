@@ -3,9 +3,9 @@ import subprocess
 from flask_jwt_extended import jwt_required
 from flask import Blueprint,request, render_template
 
-from api.model.StoryModel import Story, StorySchema
-from api.model.LeaderboardModel import Leaderboard, LeaderboardSchema
-from api.model.UserModel import User, UserSchema
+from typescript.api.model.StoryModel import Story, StorySchema
+from typescript.api.model.LeaderboardModel import Leaderboard, LeaderboardSchema
+from typescript.api.model.UserModel import User, UserSchema
 
 from shutil import copyfile
 import os

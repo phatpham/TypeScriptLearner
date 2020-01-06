@@ -29,7 +29,7 @@ function Login() {
     setLoading(true);
 
     axios
-      .post("http://localhost:5000/user/login", {
+      .post("/user/login", {
         username: user,
         password: pass
       })

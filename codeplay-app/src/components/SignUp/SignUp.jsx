@@ -16,7 +16,7 @@ function SignUp() {
   const signupRequest = () => {
     if (validated === true && user.length > 0) {
       axios
-        .post("http://localhost:5000/user/signup", {
+        .post("/user/signup", {
           username: user,
           password: pass
         })
