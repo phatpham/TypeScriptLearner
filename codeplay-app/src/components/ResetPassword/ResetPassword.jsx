@@ -27,12 +27,12 @@ function ResetPassword() {
           username: userObj.username
         })
         .then(res => {
-          alert(res.data.message);
+          console.log(res.data.message);
 
           history.push("/user");
         })
         .catch(res => {
-          alert(res.message);
+          console.log(res.message);
         });
     }
   };

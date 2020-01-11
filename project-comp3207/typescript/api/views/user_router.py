@@ -37,6 +37,11 @@ def change_avatar():
         username = request.json['username']
         avatar = request.json['avatar']
         value = User.update_avatar(avatar=avatar,username=username); 
+
+        print(username)
+        print(avatar)
+        print(value)
+        
         if value:
             return custom_response(200, {'message':'got it'})
         else:

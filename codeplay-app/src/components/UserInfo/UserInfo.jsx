@@ -27,10 +27,8 @@ function UserInfo() {
       })
       .then(res => {
         changeAvatar(avatar);
-        alert(res.data.message);
       })
       .catch(res => {
-        alert(res.message);
       });
   };
 

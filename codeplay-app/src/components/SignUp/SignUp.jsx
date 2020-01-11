@@ -21,12 +21,12 @@ function SignUp() {
           password: pass
         })
         .then(res => {
-          alert("ok");
-          alert(res.data.message);
+          console.log("ok");
+          console.log(res.data.message);
           history.push("/login");
         })
         .catch(res => {
-          alert("Not Okay");
+          console.log("Not Okay");
         });
     }
   };

@@ -31,19 +31,19 @@ def execute(file_id):
         #to run this, install necessary node package in typescript/node
         write_to_tmp_file(input_code, file_id)
         print(4)
-
+        user = User.get_user_by_username(username)
         #edge case for the first problem
         if file_id == 1:
             print(input_code)
             if input_code == "console.log('Hello World')":
-                user = User.get_user_by_username(username)
+                
                 
                 save(file_id, username, time)
 
                 return {
                     'message':'Hello World',
                     'success':True,
-                    'progress':user.progress
+                    'progress':user.progress + 1
                 }
             else:
                 return {
@@ -62,7 +62,8 @@ def execute(file_id):
             except subprocess.CalledProcessError as cpe:
                 return {
                     'message': clean(cpe.output),
-                    'success': False
+                    'success': False,
+                    'progress': user.progress
                 }
 
             try:
@@ -74,25 +75,36 @@ def execute(file_id):
                 ) 
 
                 print(clean(a))
-                
+                #free editor
+                if file_id == 4:
+                    save(file_id, username, time)
+                    remove_tmp(file_id)
+                    return {
+                        'message':clean(a),
+                        'success':True  ,
+                        'progress': user.progress + 1  
+                    }
                 if clean(a) == 'true':
                     #if solution is correct, write to leaderboard
                     save(file_id, username, time)
                     remove_tmp(file_id)
                     return {
                         'message':'All test passed',
-                        'success':True    
-                    }
+                        'success':True  ,
+                        'progress': user.progress + 1  
+                    }  
                 else:
                     remove_tmp(file_id)
                     return {
                         'message':'Make sure to follow all the instructions',
-                        'success':False
+                        'success':False,
+                        'progress': user.progress
                     }
             except subprocess.CalledProcessError as cpe:
                 return {
                     'message':clean(cpe.output),
-                    'success': False
+                    'success': False,
+                    'progress': user.progress
                 }
 
 def write_to_tmp_file(input_code, file_id):

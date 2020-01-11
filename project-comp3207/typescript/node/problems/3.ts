@@ -8,7 +8,7 @@ function test1(){
 }
 
 function test2(){
-	if (typeof survival !== 'undefined' && typeof city === 'boolean') {
+	if (typeof survival !== 'undefined' && typeof survival === 'boolean') {
 		return true;	
 	} else {
         return false;

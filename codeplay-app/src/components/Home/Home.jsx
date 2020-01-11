@@ -23,25 +23,15 @@ function Home() {
         <h2>Welcome apprentice,</h2>
         <br />
         <p className="storytext" align="justify">
-          One day, the evil Mephisto burned down all of the villages. Everyone
-          died a fiery death but one. The name was Ze. The legend begins...
-          <br></br>
-          <br></br>
-          24 years later, Prognosis is still under the wicked rule of Mephisto,
-          or as his friends call him, the Mephman, Phisty Boi or simply, the Big
-          M. Not that he had any friends, no. His friends had died in a freak
-          sleepover accident. Mephisto was the only survivor, and he vowed never
-          to have friends again. He's actually a really misunderstood character.
-          But he did not handle this tragic loss well as he made it his life
-          goal to rule Prognosis, for eternity.
-          <br></br>
-          <br></br>
-          Crimbi, the local fool of the village of Gadad, was up to his usual
-          tomfoolery. Being the only fool in the village, he was given special
-          permission to smile and laugh, which was strictly banned for everyone
-          else in Prognosis. Today, Crimbi decided to swim across the river
-          Manto, despite its strong currents and history of drowning swimmers.
-          Yes, Crimbi was a fool alright.
+        The Lustrous Expanse was a peaceful land. In the Lustrous Expanse, there were three kingdoms. The Kingdom of Men, Dressudale - the Kingdom of the Elves, and Creottenia - the Kingdom of Goblins. The three kingdoms lived in harmony with each other. Well. Most of the time. The goblins were a treacherous lot that was constantly trying to take over the other kingdoms but were yet to succeed.
+        <br></br>
+        On the outskirts of the Lustrous Expanse, was a giant, largely unexplored forest. Of all the beings that had ventured into the forest, none had made it back alive.
+        <br></br>
+        Peace in the land had lasted for almost a hundred years. However, all that was soon about to change.
+        <br></br>
+        It was the night of the full moon. The tragic news of the death of the elven princess reached the Kingdom of Men. Distraught, the king called a council meeting. The king informed the people in the courtroom of the shocking news of the death of the elven princess.
+        <br></br>
+        “I am heartbroken to say, that it was one of the knights that killed the princess. The knights that have lead us into countless battles alongside the elves. One of the knights has betrayed their oath to the kingdom. The accused will be banished to the forest. Never to return,” the king announces to the courtroom as he walks down the aisle. “I am so disappointed it was you. Now you have to spend the rest of his life banished from The Expanse”, the king declared as he points to a knight in the first row.   
         </p>
       </div>
       <div className="loginbuttons">

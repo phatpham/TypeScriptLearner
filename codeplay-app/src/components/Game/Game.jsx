@@ -46,14 +46,14 @@ function Game() {
     axios
       .post("/leaderboard/" + unit)
       .then(res => {
-        alert(res.data.list);
+        console.log(res.data.list);
         setLeaders(res.data.list);
 
         var m = document.getElementById("modal");
         m.style.display = "block";
       })
       .catch(res => {
-        alert("Failed Loading LeaderBoard");
+        console.log("Failed Loading LeaderBoard");
       });
   }
 
@@ -101,7 +101,7 @@ function Game() {
         });
       })
       .catch(res => {
-        alert("Loading Error");
+        console.log("Loading Error");
       });
   }, []);
 
@@ -114,7 +114,7 @@ function Game() {
         input_code: code
       })
       .then(res => {
-        alert(res.data.message);
+        console.log(res.data.message);
         setOutput(res.data.message);
         dispatch(
           loadUser({
@@ -128,7 +128,7 @@ function Game() {
         console.log(userObj);
       })
       .catch(res => {
-        alert("Not Working");
+        console.log("Not Working");
       });
   }
 
@@ -196,7 +196,6 @@ function Game() {
           />
         </div>
         <div className="userinfodiv">
-          <p>{userObj.username}</p>
           <button
             onClick={() => {
               history.push("/user");
