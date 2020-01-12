@@ -5,9 +5,9 @@ from flask import Blueprint,request, render_template
 from flask_jwt_extended import (JWTManager, create_access_token, create_refresh_token, jwt_required, 
                                 jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 from flask_cors import cross_origin
-from api.utils.response import custom_response
-from api.model.UserModel import User, UserSchema
-from api.model.RevokedToken import RevokedToken, RevokedTokenSchema
+from typescript.api.utils.response import custom_response
+from typescript.api.model.UserModel import User, UserSchema
+from typescript.api.model.RevokedToken import RevokedToken, RevokedTokenSchema
 
 
 userBP = Blueprint('userBP', __name__, url_prefix='/user')
@@ -31,20 +31,24 @@ def user():
 
 
 @userBP.route('/update/avatar', methods = ['PUT'])
-#@jwt_required
+#jwt_required
 def change_avatar():
     if request.method == 'PUT':
-        username = get_jwt_identity()
-        print(username)
+        username = request.json['username']
         avatar = request.json['avatar']
         value = User.update_avatar(avatar=avatar,username=username); 
+
+        print(username)
+        print(avatar)
+        print(value)
+        
         if value:
             return custom_response(200, {'message':'got it'})
         else:
             return custom_response(500, {'message':'failed'})
 
 @userBP.route('/update', methods = ['PUT'])
-#@jwt_required
+#jwt_required
 def change_password():
     if request.method == 'PUT':
         username = request.json['username']
@@ -109,8 +113,8 @@ def login():
 
 #log out access token
 
-@userBP.route('/logout')
-#@jwt_required
+@userBP.route('/logout', methods = ['POST'])
+#jwt_required
 def logout():
     jti = get_raw_jwt()['jti']
     try:

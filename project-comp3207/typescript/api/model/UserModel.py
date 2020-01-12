@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields
 
-from api.utils.database import db
+from typescript.api.utils.database import db
 
 from sqlalchemy.dialects.mysql import TIME
 from passlib.hash import pbkdf2_sha256 as sha256

@@ -44,23 +44,23 @@ function Game() {
 
   function requestLeaderBoard(unit) {
     axios
-      .post("http://localhost:5000/leaderboard/" + unit)
+      .post("/leaderboard/" + unit)
       .then(res => {
-        alert(res.data.list);
+        console.log(res.data.list);
         setLeaders(res.data.list);
 
         var m = document.getElementById("modal");
         m.style.display = "block";
       })
       .catch(res => {
-        alert("Failed Loading LeaderBoard");
+        console.log("Failed Loading LeaderBoard");
       });
   }
 
   const loadChapter = chapterID => {
     setStart(new Date());
     if (chapterID <= userObj.progress + 1) {
-      axios.post("http://localhost:5000/story/load/" + chapterID).then(res => {
+      axios.post("/story/load/" + chapterID).then(res => {
         setInstructions(res.data.instruction);
         setStory(res.data.storyDescription);
         setOptions({
@@ -85,10 +85,10 @@ function Game() {
   }
   useEffect(() => {
     axios
-      .post("http://localhost:5000/story/load")
+      .post("/story/load")
       .then(res => {
         setChapters(res.data.message);
-        axios.post("http://localhost:5000/story/load/" + unit).then(res => {
+        axios.post("/story/load/" + unit).then(res => {
           setInstructions(res.data.instruction);
           setStory(res.data.storyDescription);
           setOptions({
@@ -101,20 +101,20 @@ function Game() {
         });
       })
       .catch(res => {
-        alert("Loading Error");
+        console.log("Loading Error");
       });
   }, []);
 
   // send request to server to run code.
   function runCode(code) {
     axios
-      .post("http://localhost:5000/game/execute/" + unit, {
+      .post("/game/execute/" + unit, {
         username: userObj.username,
         time: timer.minutes * 60 + timer.seconds,
         input_code: code
       })
       .then(res => {
-        alert(res.data.message);
+        console.log(res.data.message);
         setOutput(res.data.message);
         dispatch(
           loadUser({
@@ -128,7 +128,7 @@ function Game() {
         console.log(userObj);
       })
       .catch(res => {
-        alert("Not Working");
+        console.log("Not Working");
       });
   }
 
@@ -196,7 +196,6 @@ function Game() {
           />
         </div>
         <div className="userinfodiv">
-          <p>{userObj.username}</p>
           <button
             onClick={() => {
               history.push("/user");

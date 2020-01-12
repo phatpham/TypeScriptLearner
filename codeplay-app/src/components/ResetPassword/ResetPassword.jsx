@@ -21,18 +21,18 @@ function ResetPassword() {
   const resetRequest = () => {
     if (validated === true) {
       axios
-        .put("http://localhost:5000/user/update", {
+        .put("/user/update", {
           old_password: oldPass,
           new_password: newPass,
           username: userObj.username
         })
         .then(res => {
-          alert(res.data.message);
+          console.log(res.data.message);
 
           history.push("/user");
         })
         .catch(res => {
-          alert(res.message);
+          console.log(res.message);
         });
     }
   };

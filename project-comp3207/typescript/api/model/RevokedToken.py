@@ -1,9 +1,9 @@
 from marshmallow import Schema, fields
 
-from api.utils.database import db
+from typescript.api.utils.database import db
 
 class RevokedToken(db.Model):
-    __tablename__ = 'revoked_tokens'
+    __tablename__ = 'RevokedToken'
     id = db.Column(db.Integer, primary_key = True)
     jti = db.Column(db.String(255))
     
@@ -12,7 +12,7 @@ class RevokedToken(db.Model):
         db.session.commit()
     
     @staticmethod
-    def is_jti_blacklisted(self, jti):
+    def is_jti_blacklisted(jti):
         query = RevokedToken.query.filter_by(jti = jti).first()
         return bool(query)
 

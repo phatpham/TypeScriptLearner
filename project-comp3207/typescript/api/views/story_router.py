@@ -1,11 +1,9 @@
 from flask import Blueprint,request, render_template
 
-from api.model.StoryModel import Story, StorySchema
+from typescript.api.model.StoryModel import Story, StorySchema
 from flask_jwt_extended import jwt_required
 
 storyBP = Blueprint('storyBP', __name__, url_prefix='/story')
-
-#not sure about the route
 
 @storyBP.route('/load/<int:story_id>', methods = ['POST'])
 #@jwt_required

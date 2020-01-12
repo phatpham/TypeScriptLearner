@@ -16,17 +16,17 @@ function SignUp() {
   const signupRequest = () => {
     if (validated === true && user.length > 0) {
       axios
-        .post("http://localhost:5000/user/signup", {
+        .post("/user/signup", {
           username: user,
           password: pass
         })
         .then(res => {
-          alert("ok");
-          alert(res.data.message);
+          console.log("ok");
+          console.log(res.data.message);
           history.push("/login");
         })
         .catch(res => {
-          alert("Not Okay");
+          console.log("Not Okay");
         });
     }
   };
